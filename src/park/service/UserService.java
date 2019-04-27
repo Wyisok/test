@@ -1,6 +1,7 @@
 package park.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import park.mapper.UserMapper;
 import park.pojo.User;
+import park.utils.DataTablePage;
 import park.utils.Page;
 
 @Service
@@ -15,18 +17,22 @@ public class UserService {
 	@Autowired
 	UserMapper userMapper;
 	/**
-	 * ²éÑ¯ËùÓÐÓÃ»§
+	 * æŸ¥è¯¢å…¨éƒ¨
 	 */
-	public Page getAllUsers(int currentPageNo){
+	public List<User> getAllUser(){
+		return userMapper.getAll();
+	}
+	
+	/*public Page getAllUsers(int currentPageNo){
 		
 		Page page=new Page();
 		
-		//·â×°µ±Ç°Ò³ºÅ
+		//ï¿½ï¿½×°ï¿½ï¿½Ç°Ò³ï¿½ï¿½
 		page.setCurrentPageNo(currentPageNo);
-		//·â×°×Ü¼ÇÂ¼Êý
+		//ï¿½ï¿½×°ï¿½Ü¼ï¿½Â¼ï¿½ï¿½
 		Integer allRecord = userMapper.selectAll();
 		page.setRecordNo(allRecord);
-		//·â×°×ÜÒ³Êý
+		//ï¿½ï¿½×°ï¿½ï¿½Ò³ï¿½ï¿½
 		Integer allPageNo=null;
 		if(page.getRecordNo()%page.getPageSize()==0){
 			allPageNo=page.getRecordNo()/page.getPageSize();
@@ -34,46 +40,58 @@ public class UserService {
 			allPageNo=page.getRecordNo()/page.getPageSize()+1;
 		}
 		page.setPageNo(allPageNo);
-		System.out.println("×ÜÒ³Êý"+page.getPageNo());
-		//ÅÐ¶Ï
+		System.out.println("ï¿½ï¿½Ò³ï¿½ï¿½"+page.getPageNo());
+		//ï¿½Ð¶ï¿½
 		if(page.getCurrentPageNo()<=0){
-			page.setCurrentPageNo(1);                          //°Ñµ±Ç°Ò³ÉèÖÃÎª1
+			page.setCurrentPageNo(1);                          //ï¿½Ñµï¿½Ç°Ò³ï¿½ï¿½ï¿½ï¿½Îª1
 		}else if(page.getCurrentPageNo()>page.getPageNo()){
-			page.setCurrentPageNo(page.getPageNo());          //°Ñµ±Ç°Ò³ÉèÖÃÎª×î´óÒ³Êý
+			page.setCurrentPageNo(page.getPageNo());          //ï¿½Ñµï¿½Ç°Ò³ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 		}
 		
 		
-		//·â×°±¾Ò³ÏÔÊ¾µÄÄÚÈÝ
+		//ï¿½ï¿½×°ï¿½ï¿½Ò³ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Integer start=(page.getCurrentPageNo()-1)*page.getPageSize();
 		Integer end=page.getCurrentPageNo()*page.getPageSize()+1;
 		List<User> emplist=userMapper.getAll(start, end);
 		page.setUserList(emplist);
 		return page;
-	}
+	}*/
+	
 	/**
-	 * ¸ù¾Ýid²éÑ¯ÓÃ»§
-	 */
-	public User selectById(Integer user_id){
-		return userMapper.selectById(user_id);
-	}
-	/**
-	 * Ìí¼ÓÓÃ»§
+	 * ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	 * @return 
 	 */
 	public void addUser(User user){
 		userMapper.add(user);
 	}
 	/**
-	 * ¸üÐÂÓÃ»§
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	 */
 	public void update(User user){
+		String a=UUID.randomUUID().toString();
+		user.setUserId(a);
+		System.out.println(a);
 		userMapper.update(user);
 	}
 	/**
-	 * É¾³ýÓÃ»§
+	 * É¾ï¿½ï¿½ï¿½Ã»ï¿½
 	 */
-	public void detele(Integer user_id){
+	public void detele(String user_id){
 	userMapper.deleteById(user_id);
+	}
+
+	public User getById(String userid) {
+		
+		return userMapper.selectById(userid);
+	}
+
+	public void getAllUser(DataTablePage<User> dataTablePage) {
+		int count = userMapper.selectAll();
+		dataTablePage.setiTotalRecords(count);
+		dataTablePage.setiTotalDisplayRecords(count);
+		List<User> page = userMapper.getPage(dataTablePage.getiDisplayStart(), dataTablePage.getiDisplayEnd());
+		dataTablePage.setAaData(page);
+		
 	}
 	
 }

@@ -3,7 +3,7 @@ package park.pojo;
 import java.util.Date;
 
 public class User {
-private String user_id;
+private String userId;
 private String username;
 private String password;
 private String name;
@@ -12,13 +12,13 @@ private String telephone;
 private String email;
 private String balance;
 private int state;
-private Date create_time;
-private String park_id;
-public String getUser_id() {
-	return user_id;
+private Date createTime;
+private String parkId;
+public String getUserId() {
+	return userId;
 }
-public void setUser_id(String user_id) {
-	this.user_id = user_id;
+public void setUserId(String user_id) {
+	this.userId = user_id;
 }
 public String getUsername() {
 	return username;
@@ -69,16 +69,16 @@ public void setState(int state) {
 	this.state = state;
 }
 public Date getCreate_time() {
-	return create_time;
+	return createTime;
 }
 public void setCreate_time(Date create_time) {
-	this.create_time = create_time;
+	this.createTime = create_time;
 }
 public String getPark_id() {
-	return park_id;
+	return parkId;
 }
 public void setPark_id(String park_id) {
-	this.park_id = park_id;
+	this.parkId = park_id;
 }
 
 }
