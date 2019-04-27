@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Update;
 import park.pojo.User;
 
 public interface UserMapper {
-@Select("select count(*) from user") 
+@Select("select count(*) from USER") 
 int selectAll();
-@Select("select * from user ")
+@Select("select * from USER")
 List<User> getAll();
-@Select("select * from user limit #{0},#{1}")
+@Select("select * from USER limit #{0},#{1}")
 List<User> getPage(int start , int end);
 
 @Select("select * from user where userId=#{0}")

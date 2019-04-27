@@ -26,22 +26,23 @@ import park.utils.Page;
 public class UserController {
 	@Autowired
 	UserService userService;
+	
 	/**
-	 * 
-	 * @param allData
-	 * @param dataTablePage
+	 * 转发到tables.jsp页面
 	 * @return
 	 */
-	@RequestMapping("/getUsersTable")
+	@RequestMapping("/UserTable")
 	public String getTable(){
 		return "tables";
 	}
 	
-	
-	
-	
-	
-	@RequestMapping("/getusers")
+	/**
+	 * 获取用户分页信息
+	 * @param allData
+	 * @param dataTablePage
+	 * @return
+	 */
+	@RequestMapping("/getUserTable")
 	@ResponseBody
 	public String getAll(@RequestParam String  allData, DataTablePage<User> dataTablePage){
 		JSONArray jsonArray = JSONArray.fromObject(allData);
@@ -74,16 +75,6 @@ public class UserController {
 		return json.toString();
 	}
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		

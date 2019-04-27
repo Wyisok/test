@@ -12,7 +12,6 @@
        <result column="balance" jdbcType="DOUBLE" property="balance" />
         <result column="state" jdbcType="INTEGER" property="state" />
          <result column="create_time" jdbcType="DATE" property="createTime" />
-          <result column="park_id" jdbcType="VARCHAR" property="parkId" />
 </resultMap>
 
 

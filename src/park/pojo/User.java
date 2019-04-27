@@ -1,5 +1,6 @@
 package park.pojo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
@@ -17,8 +18,8 @@ private String parkId;
 public String getUserId() {
 	return userId;
 }
-public void setUserId(String user_id) {
-	this.userId = user_id;
+public void setUserId(String userId) {
+	this.userId = userId;
 }
 public String getUsername() {
 	return username;
@@ -68,17 +69,18 @@ public int getState() {
 public void setState(int state) {
 	this.state = state;
 }
-public Date getCreate_time() {
-	return createTime;
+public String getCreateTime() {
+	SimpleDateFormat temp=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+    String date=temp.format(createTime);  
+	return date;
 }
-public void setCreate_time(Date create_time) {
-	this.createTime = create_time;
+public void setCreateTime(Date createTime) {
+	this.createTime = createTime;
 }
-public String getPark_id() {
+public String getParkId() {
 	return parkId;
 }
-public void setPark_id(String park_id) {
-	this.parkId = park_id;
+public void setParkId(String parkId) {
+	this.parkId = parkId;
 }
-
 }

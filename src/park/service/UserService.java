@@ -91,7 +91,6 @@ public class UserService {
 		dataTablePage.setiTotalDisplayRecords(count);
 		List<User> page = userMapper.getPage(dataTablePage.getiDisplayStart(), dataTablePage.getiDisplayEnd());
 		dataTablePage.setAaData(page);
-		
 	}
 	
 }
