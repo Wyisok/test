@@ -18,7 +18,7 @@
 			<!-- DataTables Example -->
 			<div class="card mb-3">
 				<div class="card-header">
-					<i class="fas fa-table"></i> Data Table Example
+					<i class="fas fa-table"></i><href onclick=reloadTable()>  用户列表</href>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -36,6 +36,7 @@
 									<th>余额</th>
 									<th>账户状态</th>
 									<th>创建时间</th>
+									<th>操作</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -50,6 +51,7 @@
 									<th>余额</th>
 									<th>账户状态</th>
 									<th>创建时间</th>
+									<th>操作</th>
 								</tr>
 							</tfoot> 
 							<tbody>
@@ -133,8 +135,17 @@
 					{ "data": "email" },
 					{ "data": "state" },
 					{ "data": "balance" },
-					{ "data": "createTime" }
-					], 
+					{ "data": "createTime" }],
+		            "columnDefs": [
+			                {
+			                    "targets": [10],
+			                    "data": "userId",
+			                    "render": function(data, type, full) {
+			                        return "<a href='/update?userId=" + data + "'>Update</a>";
+			                    }
+			                }
+			            ],
+					 
 					 // numbers:数字
 		            // simple:前一页，后一页
 		            // simple_numbers:前一页，后一页，数字
@@ -164,6 +175,12 @@
 				error : function(msg) {
 				}
 			});
+		}
+		function  reloadTable(){
+			var table = table = $('#dataTable').DataTable();
+			table.ajax.reload( function( json ) {
+			  //  $('#myInput').val(json.lastInput);
+			} , false);
 		}
 	</script>
 </body>
