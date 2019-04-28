@@ -17,13 +17,14 @@
 			<!-- DataTables Example -->
 			<div class="card mb-3">
 				<div class="card-header">
-					<i class="fas fa-table"></i><href onclick=reloadTable()>  用户列表</href>
+					<i class="fas fa-table"></i>
+					<href onclick=reloadTable()> 用户列表</href>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-striped table-hover table-bordered" id="dataTable" width="100%"
-							cellspacing="0">
-						 <thead>
+						<table class="table table-striped table-hover table-bordered"
+							id="dataTable" width="100%" cellspacing="0">
+							<thead>
 								<tr>
 									<th>用户ID</th>
 									<th>用户名</th>
@@ -39,22 +40,6 @@
 									<th></th>
 								</tr>
 							</thead>
-							<tfoot>
-								<tr>
-									<th>用户ID</th>
-									<th>用户名</th>
-									<th>密码</th>
-									<th>姓名</th>
-									<th>性别</th>
-									<th>电话</th>
-									<th>邮箱</th>
-									<th>余额</th>
-									<th>账户状态</th>
-									<th>创建时间</th>
-									<th></th>
-									<th></th>
-								</tr>
-							</tfoot> 
 							<tbody>
 							</tbody>
 						</table>
@@ -127,7 +112,7 @@
 		        bInfo:true,//是否显示表格相关信息
 		        "autoWidth": true,//自动列宽
 				 "columns": [
-					{ "data": "userId" },
+					 {"data": null,"targets": 0},
 					{ "data": "username" },
 					{ "data": "password" },
 					{ "data": "name" },
@@ -165,6 +150,18 @@
 				"bServerSide" : true, //这个用来指明是通过服务端来取数据    
 				"sAjaxSource" : "${pageContext.request.contextPath}/getUserTable", //这个是请求的地址    
 				"fnServerData" : retrieveData,// 获取数据的处理函数    
+				"fnDrawCallback": function(){
+					　　var api = this.api();
+					　　//var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
+					　　api.column(0).nodes().each(function(cell, i) {
+
+					　　　　//此处 startIndex + i + 1;会出现翻页序号不连续，主要是因为startIndex 的原因,去掉即可。
+					　　　　//cell.innerHTML = startIndex + i + 1;
+
+					　　　　cell.innerHTML =  i + 1;
+
+					　　}); 
+					}
 			}); 
 		});
 		// 3个参数的名字可以随便命名,但必须是3个参数,少一个都不行    
