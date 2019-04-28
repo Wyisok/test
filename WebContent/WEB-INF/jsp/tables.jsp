@@ -125,6 +125,7 @@
 		        ordering: false,//是否排序
 		        bPaginate:true,//是否允许分页
 		        bInfo:true,//是否显示表格相关信息
+		        "autoWidth": true,//自动列宽
 				 "columns": [
 					{ "data": "userId" },
 					{ "data": "username" },
@@ -148,7 +149,7 @@
 				                    "targets": [11],
 				                    "data": "userId",
 				                    "render": function(data, type, full) {
-				                        return "<a href='/delete?userId=" + data + "'>Delete</a>";
+				                        return "<a class='btn btn-danger' href='#'><i class='fa fa-trash-o fa-lg'></i> Delete</a>";
 				                    }
 				                }
 			            ],
