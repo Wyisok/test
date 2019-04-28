@@ -16,7 +16,7 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="${pageContext.request.contextPath }/index">智能停车管理系统</a>
+    <a class="navbar-brand mr-1" href="${pageContext.request.contextPath }">智能停车管理系统</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -76,16 +76,15 @@
   </nav>
 
   <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="${pageContext.request.contextPath }">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <span>首页</span>
         </a>
       </li>
-      <li class="nav-item dropdown">
+<!--       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
           <span>Pages</span>
@@ -100,14 +99,14 @@
           <a class="dropdown-item" href="404.html">404 Page</a>
           <a class="dropdown-item" href="blank.html">Blank Page</a>
         </div>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="javascript:$('#content-wrapper').load('charts.html');">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" onclick=openAjaxURL("UserTable"); />
+        <a class="nav-link" onclick=openAjaxURL("user"); />
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
       </li>
@@ -118,14 +117,15 @@
     </ul>
 <script type="text/javascript">
 	function openAjaxURL(url){
+		$(this).addClass("active");
 		var url = "${pageContext.request.contextPath}/"+url;
 		$('#content-wrapper').load(url);
 	}
 </script>
+
+
     <div id="content-wrapper">
-
       <div class="container-fluid">
-
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">

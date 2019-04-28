@@ -10,7 +10,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<%@include file="header.jsp"%>
 </head>
 <body id="page-top">
 	<div id="content-wrapper">
@@ -36,7 +35,8 @@
 									<th>余额</th>
 									<th>账户状态</th>
 									<th>创建时间</th>
-									<th>操作</th>
+									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -51,7 +51,8 @@
 									<th>余额</th>
 									<th>账户状态</th>
 									<th>创建时间</th>
-									<th>操作</th>
+									<th></th>
+									<th></th>
 								</tr>
 							</tfoot> 
 							<tbody>
@@ -113,7 +114,6 @@
 		</div>
 	</div>
 
-	<%@include file="footer.jsp"%>
 	<!-- 表格的初始化 与后台交互  -->
 	<script type="text/javascript">
 		/* $(function(){
@@ -143,7 +143,14 @@
 			                    "render": function(data, type, full) {
 			                        return "<a href='/update?userId=" + data + "'>Update</a>";
 			                    }
-			                }
+			                },
+			  			{
+				                    "targets": [11],
+				                    "data": "userId",
+				                    "render": function(data, type, full) {
+				                        return "<a href='/delete?userId=" + data + "'>Delete</a>";
+				                    }
+				                }
 			            ],
 					 
 					 // numbers:数字
@@ -178,8 +185,7 @@
 		}
 		function  reloadTable(){
 			var table = table = $('#dataTable').DataTable();
-			table.ajax.reload( function( json ) {
-			  //  $('#myInput').val(json.lastInput);
+			table.ajax.reload( function( json) {
 			} , false);
 		}
 	</script>

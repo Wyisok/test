@@ -27,14 +27,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	/**
-	 * 转发到tables.jsp页面
-	 * @return
-	 */
-	@RequestMapping("/UserTable")
-	public String getTable(){
-		return "tables";
-	}
+
 	
 	/**
 	 * 获取用户分页信息
