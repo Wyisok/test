@@ -27,8 +27,6 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-
-	
 	/**
 	 * 获取用户分页信息
 	 * @param allData

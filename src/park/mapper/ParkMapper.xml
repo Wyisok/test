@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="park.mapper.ParkMapper">
+<resultMap id="park"  type="park.pojo.Park" >
+  <id property="parkId" column="park_id" />
+  <result property="parkName" column="park_name"/>
+  <result property="parkSpotNum" column="park_spot_num"/>
+  <result property="address" column="address"/>
+  <result property="lngLat" column="lng_lat"/>
+  <result property="charge" column="charge"/>
+  <result property="chargeType" column="charge_type"/>
+  <result property="state" column="state"/>
+</resultMap>
+</mapper>

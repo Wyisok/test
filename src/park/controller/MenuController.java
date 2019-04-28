@@ -21,4 +21,20 @@ public class MenuController {
 	public String getTable(){
 		return "tables";
 	}
+	/**
+	 * 转发到login.jsp页面
+	 * @return
+	 */
+	@RequestMapping("/login")
+	public String getLogin(){
+		return "login";
+	}
+	/**
+	 * 转发到register.jsp页面
+	 * @return
+	 */
+	@RequestMapping("/register")
+	public String getRegister(){
+		return "register";
+	}
 }
