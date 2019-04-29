@@ -1,6 +1,7 @@
 package park.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import park.pojo.User;
 import park.service.UserService;
 import park.utils.DataTablePage;
+import park.utils.JsonDate2String;
+import park.utils.JsonDateValueProcessor;
 import park.utils.Page;
 
 
@@ -61,7 +65,7 @@ public class UserController {
 		userService.getAllUser(dataTablePage);
 	
 		//--最后得封装成jsonobject对象，才能显示出来
-		JSONObject json = JSONObject.fromObject(dataTablePage);
+		JSONObject json = JSONObject.fromObject(dataTablePage,JsonDate2String.getDateStringJsonConfig());
 		System.out.println(json);
 		return json.toString();
 	}

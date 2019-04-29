@@ -37,7 +37,6 @@
 									<th>账户状态</th>
 									<th>创建时间</th>
 									<th></th>
-									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -129,14 +128,7 @@
 			                    "render": function(data, type, full) {
 			                        return "<a href='/update?userId=" + data + "'>Update</a>";
 			                    }
-			                },
-			  			{
-				                    "targets": [11],
-				                    "data": "userId",
-				                    "render": function(data, type, full) {
-				                        return "<a class='btn btn-danger' href='#'><i class='fa fa-trash-o fa-lg'></i> Delete</a>";
-				                    }
-				                }
+			                }
 			            ],
 					 
 					 // numbers:数字
@@ -146,7 +138,7 @@
 		            //full_numbers:第一页，前一页，后一页，最后页，数字
 		            //first_last_numbers:第一页，最后页，数字
 				"sPaginationType": "full_numbers", //把所有页码显示出来
-				"bProcessing" : false, // 是否显示取数据时的那个等待提示    
+				"bProcessing" : true, // 是否显示取数据时的那个等待提示    
 				"bServerSide" : true, //这个用来指明是通过服务端来取数据    
 				"sAjaxSource" : "${pageContext.request.contextPath}/getUserTable", //这个是请求的地址    
 				"fnServerData" : retrieveData,// 获取数据的处理函数    
@@ -154,10 +146,8 @@
 					　　var api = this.api();
 					　　//var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
 					　　api.column(0).nodes().each(function(cell, i) {
-
 					　　　　//此处 startIndex + i + 1;会出现翻页序号不连续，主要是因为startIndex 的原因,去掉即可。
 					　　　　//cell.innerHTML = startIndex + i + 1;
-
 					　　　　cell.innerHTML =  i + 1;
 
 					　　}); 

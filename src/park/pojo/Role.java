@@ -1,9 +1,8 @@
-package park.mapper;
+package park.pojo;
 
 public class Role {
 private String role_id;
 private String role_name;
-private String identity_id;
 public String getRole_id() {
 	return role_id;
 }
@@ -15,12 +14,6 @@ public String getRole_name() {
 }
 public void setRole_name(String role_name) {
 	this.role_name = role_name;
-}
-public String getIdentity_id() {
-	return identity_id;
-}
-public void setIdentity_id(String identity_id) {
-	this.identity_id = identity_id;
 }
 
 }

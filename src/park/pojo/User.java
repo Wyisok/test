@@ -14,7 +14,6 @@ private String email;
 private String balance;
 private int state;
 private Date createTime;
-private String parkId;
 public String getUserId() {
 	return userId;
 }
@@ -69,18 +68,18 @@ public int getState() {
 public void setState(int state) {
 	this.state = state;
 }
-public String getCreateTime() {
-	SimpleDateFormat temp=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
-    String date=temp.format(createTime);  
-	return date;
+public Date getCreateTime() {
+//	SimpleDateFormat temp=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+//    String date=temp.format(createTime);  
+	return createTime;
 }
 public void setCreateTime(Date createTime) {
 	this.createTime = createTime;
 }
-public String getParkId() {
-	return parkId;
-}
-public void setParkId(String parkId) {
-	this.parkId = parkId;
+@Override
+public String toString() {
+	return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", name=" + name + ", sex="
+			+ sex + ", telephone=" + telephone + ", email=" + email + ", balance=" + balance + ", state=" + state
+			+ ", createTime=" + createTime + "]";
 }
 }

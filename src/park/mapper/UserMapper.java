@@ -19,7 +19,7 @@ List<User> getPage(int start , int end);
 
 @Select("select * from user where userId=#{0}")
 User selectById(String user_id);
-@Insert("insert into user values(#{default} ,#{username},#{password},#{name},#{sex},#{telephone},#{email},#{balance},#{state},#{createTime},#{parkId})")
+@Insert("insert into USER values(#{userId} ,#{username},#{password},#{name},#{sex},#{telephone},#{email},#{balance},#{state},#{createTime})")
 void add(User user);
 @Update("update user set name=#{name} where user_id=#{userId}")
 void update(User user);

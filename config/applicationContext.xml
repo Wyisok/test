@@ -85,7 +85,7 @@
 
 
 	<!-- 配置和mybatis的整合 -->
-	<bean id="sqlSessionFactory"
+	<bean id="sqlSessionFactory1"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 指定mybatis全局配置的位置 -->
 		<property name="configLocation"
@@ -107,7 +107,7 @@
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory"
-			ref="sqlSessionFactory"></constructor-arg>
+			ref="sqlSessionFactory1"></constructor-arg>
 		<constructor-arg name="executorType" value="BATCH"></constructor-arg>
 	</bean>
 

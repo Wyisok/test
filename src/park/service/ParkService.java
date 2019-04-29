@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import park.mapper.ParkMapper;
+import park.mapper.UserMapper;
 import park.pojo.Park;
+import park.pojo.User;
 import park.utils.DataTablePage;
 
 /* 
@@ -20,26 +22,30 @@ import park.utils.DataTablePage;
 public class ParkService {
 
 	@Autowired
-	ParkMapper parkMapper;
+	private ParkMapper parkMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
+	
 	/**
 	 * 获取总停车场数
 	 * @return
 	 */
-	int getParkNum() {
+	public int getParkNum() {
 		return parkMapper.getParkNum();
 	}
 	/**
 	 * 获取所有的停车场
 	 * @return
 	 */
-	List<Park> getAllParks() {
+	public List<Park> getAllParks() {
 		return parkMapper.getAllParks();
 	}
 	/**
 	 * dataTables表格插件，获取一页数据
 	 * @param dataTablePage
 	 */
-	void getPageParks(DataTablePage<Park> dataTablePage) {
+	public void getPageParks(DataTablePage<Park> dataTablePage) {
 		int count = parkMapper.getParkNum();
 		dataTablePage.setiTotalRecords(count);
 		dataTablePage.setiTotalDisplayRecords(count);
@@ -51,7 +57,16 @@ public class ParkService {
 	 * @param parkId
 	 * @return
 	 */
-	Park getParkById(String parkId) {
+	public Park getParkById(String parkId) {
 		return parkMapper.getParkById(parkId);
+	}
+	/**
+	 * 添加停车场
+	 * @param park
+	 * @param user 
+	 */
+	public void addPark(Park park, User user) {
+		parkMapper.insertPark(park);
+		userMapper.add(user);
 	}
 }

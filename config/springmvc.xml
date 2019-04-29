@@ -12,7 +12,8 @@
 		<!--只扫描控制器。  -->
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
-	
+	<!-- 属性文件的加载 -->
+	<context:property-placeholder location="classpath:park.properties"/>
 	<!--配置视图解析器，方便页面返回  -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="WEB-INF/jsp/"></property>

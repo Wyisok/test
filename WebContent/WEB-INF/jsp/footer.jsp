@@ -21,8 +21,11 @@
 
   <!-- Custom scripts for all pages-->
   <script src="${pageContext.request.contextPath }/static/js/sb-admin.min.js"></script>
-
+  
   <!-- Demo scripts for this page-->
   <script src="${pageContext.request.contextPath }/static/js/demo/chart-area-demo.js"></script>
+  <!-- 省市区级联插件 -->
+  <script src="${pageContext.request.contextPath }/static/js/distpicker.data.js"></script>
+<script src="${pageContext.request.contextPath }/static/js/distpicker.js"></script>
 </body>
 </html>

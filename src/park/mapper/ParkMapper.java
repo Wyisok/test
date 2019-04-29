@@ -7,6 +7,7 @@ package park.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import park.pojo.Park;
@@ -39,4 +40,7 @@ public interface ParkMapper {
 	 */
 	@Select("select * from PARK where parkId = #{0}")
 	Park getParkById(String parkId);
+	
+	@Insert("insert into PARK values(#{parkId},#{parkName},#{parkSpotNum},#{address},#{lngLat},#{charge},#{chargeType},#{state})")
+	void insertPark(Park park);
 }

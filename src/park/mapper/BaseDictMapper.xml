@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="park.mapper.BaseDictMapper">
+<resultMap id="dict"  type="park.pojo.BaseDict" >
+  <id property="dictId" column="dict_id" />
+  <result property="dictTypeName" column="dict_type_name"/>
+  <result property="dictTypeCode" column="dict_type_code"/>
+  <result property="dictItemName" column="dict_item_name"/>
+  <result property="dictItemCode" column="dict_item_code"/>
+  <result property="dictSort" column="dict_sort"/>
+  <result property="description" column="description"/>
+  <result property="state" column="state"/>
+</resultMap>
+</mapper>
