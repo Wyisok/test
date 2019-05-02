@@ -4,20 +4,7 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>SB Admin - Login</title>
-
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
-
+ <%@include file="header.jsp" %>
 </head>
 
 <body class="bg-dark">
@@ -26,17 +13,17 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form>
+        <form id="addUserForm" action="${pageContext.request.contextPath}/add" method="post">
           <div class="form-group">
+              <label for="inputEmail">User name</label>
             <div class="form-label-group">
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-              <label for="inputEmail">Email address</label>
+              <input type="text" id="inputUser" name="username" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
             </div>
           </div>
           <div class="form-group">
-            <div class="form-label-group">
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
               <label for="inputPassword">Password</label>
+            <div class="form-label-group">
+              <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="required">
             </div>
           </div>
           <div class="form-group">
@@ -45,25 +32,46 @@
                 <input type="checkbox" value="remember-me">
                 Remember Password
               </label>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${msg }</span>
             </div>
           </div>
-          <a class="btn btn-primary btn-block" href="tables.html">Login</a>
+          <a class="btn btn-primary btn-block"  onclick="document:addUserForm.submit()"  >Login</a>
         </form>
         <div class="text-center">
-          <a class="d-block small mt-3" href="register.html">Register an Account</a>
-          <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+          <a class="d-block small mt-3" href="register">Register an Account</a>
+          <a class="d-block small" href="forgot-password">Forgot Password?</a>
         </div>
       </div>
     </div>
   </div>
+  
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<%@include file="footer.jsp" %>
+	
 
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+ <script type="text/javascript">
+		<!-- 
+		 保存按钮单机事件
+		-->
+		
+		
+		function login() {
+		alert("sdfsfds")
+			//1.模态框填写的表单数据提交给服务器保存
+			//2.发送ajax请求保存员工
+			$.ajax({
+				url : "${APP_PATH}/add",
+				type : "POST",
+				data : $("#addUserForm").serialize(),
+				success : function(result) {
+				
+				}
+			});
+		}
+		
+</script>
 </body>
-
+ 
+  
 </html>

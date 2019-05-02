@@ -62,24 +62,28 @@ public class UserService {
 	 * @return 
 	 */
 	public void addUser(User user){
+		UUID uuid  =  UUID.randomUUID(); 
+		user.setUserId(uuid.toString());
 		userMapper.add(user);
 	}
 	/**
-	 * �����û�
+	 * 更新用户
 	 */
 	public void update(User user){
-		String a=UUID.randomUUID().toString();
-		user.setUserId(a);
-		System.out.println(a);
 		userMapper.update(user);
+		
 	}
 	/**
-	 * ɾ���û�
+	 * 删除用户
 	 */
 	public void detele(String user_id){
 	userMapper.deleteById(user_id);
 	}
-
+	/**
+	 * 根据id查询用户
+	 * @param userid
+	 * @return
+	 */
 	public User getById(String userid) {
 		
 		return userMapper.selectById(userid);
@@ -91,6 +95,27 @@ public class UserService {
 		dataTablePage.setiTotalDisplayRecords(count);
 		List<User> page = userMapper.getPage(dataTablePage.getiDisplayStart(), dataTablePage.getiDisplayEnd());
 		dataTablePage.setAaData(page);
+	}
+	/**
+	 * 用户登录
+	 * @param user
+	 * @return
+	 */
+	public User login(User user) {
+		return userMapper.login(user);
+		
+	}
+	/**
+	 * 用户注册
+	 */
+	public void register(User user) {
+		String a=UUID.randomUUID().toString();
+		user.setUserId(a);
+		System.out.println(a);
+		userMapper.add(user);
+		 userMapper.add(user);
+		
+		
 	}
 	
 }
