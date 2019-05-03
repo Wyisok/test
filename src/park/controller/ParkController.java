@@ -1,21 +1,17 @@
 package park.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import park.pojo.BaseDict;
 import park.pojo.Park;
+import park.pojo.Role;
 import park.pojo.User;
+import park.pojo.UserRole;
 import park.service.BaseDictService;
 import park.service.ParkService;
-import park.service.UserService;
-import park.utils.UUIDUtils;
-
+import park.service.RoleService;
 
 /**
 * @author whp
@@ -28,6 +24,9 @@ public class ParkController {
 	private BaseDictService baseDictService;
 	@Autowired
 	private ParkService parkService;
+	@ Autowired
+	private RoleService roleService;
+	
 	/**
 	 * 获取字典信息
 	 */
@@ -35,39 +34,15 @@ public class ParkController {
 	private String parkChargeType;
 	
 	
-	
-	/**
-	 * 转发到register.jsp页面
-	 * @return
-	 */
-	@RequestMapping("/register")
-	public String getRegister(Model model){
-		List<BaseDict> parkChargeTypes = baseDictService.getBaseDictByCode(parkChargeType);
-		System.out.println(parkChargeTypes);
-		model.addAttribute("parkChargeTypes",parkChargeTypes);
-		return "register";
-	}
 	@RequestMapping("/getParkTable")
 	public String getParkTable() {
 		return null;
 	}
 	@RequestMapping("/registerPark")
-	public String registerPark(Park park,User user) {
-		String parkId = UUIDUtils.getUUID();
-		String userId = UUIDUtils.getUUID();
-		park.setParkId(parkId);
-		user.setUserId(userId);
-		
-		//---state置为1
-		park.setState(1);
-		user.setState(1);
-		//-------
-		System.out.println(park);
-		System.out.println(user);
-		//--角色表  里添加   停车场员工角色，与当前注册的用户关联起来，同时将停车场id放进去 TB_USER_ROLE
-		parkService.addPark(park,user);
-		
-		
-		return "redirect:/login";
+	public String registerPark(Park park,User user,UserRole userRole) {
+		Role role = roleService.getRoleByName("停车场用户");
+		//- TB_USER_ROLE 为当期那用户添加停车场员工角色
+		parkService.addPark(park,user,userRole,role);
+		return "redirect:login";
 	}
 }

@@ -103,7 +103,6 @@ public class UserService {
 	 */
 	public User login(User user) {
 		return userMapper.login(user);
-		
 	}
 	/**
 	 * 用户注册

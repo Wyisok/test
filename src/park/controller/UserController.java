@@ -26,7 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import park.pojo.Park;
+import park.pojo.Role;
 import park.pojo.User;
+import park.service.ParkService;
+import park.service.RoleService;
+import park.service.UserRoleService;
 import park.service.UserService;
 import park.utils.DataTablePage;
 import park.utils.JsonDate2String;
@@ -37,7 +42,12 @@ import park.utils.Page;
 public class UserController {
 	@Autowired
 	UserService userService;
-
+	@Autowired
+	UserRoleService userRoleService;
+	@Autowired
+	RoleService roleService;
+	@Autowired
+	ParkService parkService;
 	/**
 	 * 获取用户分页信息
 	 * 
@@ -96,16 +106,32 @@ public class UserController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/add")
+	@RequestMapping("/parkUserLogin")
 	@ResponseBody
 	public ModelAndView login(User user, HttpServletResponse response, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		System.out.println(user.getUsername());
 		System.out.println(user.getPassword());
 		User user2 = userService.login(user);
+		
 		if (user2 != null) {
+			//获取当前用户的角色信息
+			List<Role> roles = roleService.getRolesByUserId(user2.getUserId());
+			for(Role role : roles) {
+				if("停车场用户".equalsIgnoreCase(role.getRoleName())) {
+					/** 获取到当前用户所在的停车场 */
+					Park park = parkService.getParkByUserId(user2.getUserId());
+					session.setAttribute("park", park);
+				}
+				if("普通用户".equalsIgnoreCase(role.getRoleName())) {
+					mv.addObject("msg", "用户名或密码错误");
+					mv.setViewName("login");
+				}
+			}
+			
 			System.out.println("登录ok");
 			session.setAttribute("user", user2);
+			
 			Cookie c = new Cookie("username", URLEncoder.encode(user.getUsername(), "UTF-8"));
 			c.setMaxAge(Integer.MAX_VALUE);
 			response.addCookie(c);

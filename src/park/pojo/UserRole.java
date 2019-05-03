@@ -1,33 +1,35 @@
 package park.pojo;
 
 public class UserRole {
-private String id;
-private String user_id;
-private String role_id;
-private String identity_id;
-public String getId() {
+private Long id;
+private String userId;
+private String roleId;
+private String identityId;
+
+
+public Long getId() {
 	return id;
 }
-public void setId(String id) {
+public void setId(Long id) {
 	this.id = id;
 }
-public String getUser_id() {
-	return user_id;
+public String getUserId() {
+	return userId;
 }
-public void setUser_id(String user_id) {
-	this.user_id = user_id;
+public void setUserId(String userId) {
+	this.userId = userId;
 }
-public String getRole_id() {
-	return role_id;
+public String getRoleId() {
+	return roleId;
 }
-public void setRole_id(String role_id) {
-	this.role_id = role_id;
+public void setRoleId(String roleId) {
+	this.roleId = roleId;
 }
-public String getIdentity_id() {
-	return identity_id;
+public String getIdentityId() {
+	return identityId;
 }
-public void setIdentity_id(String identity_id) {
-	this.identity_id = identity_id;
+public void setIdentityId(String identityId) {
+	this.identityId = identityId;
 }
 
 }

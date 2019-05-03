@@ -13,7 +13,7 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form id="addUserForm" action="${pageContext.request.contextPath}/add" method="post">
+        <form id="addUserForm" action="${pageContext.request.contextPath}/parkUserLogin" method="post">
           <div class="form-group">
               <label for="inputEmail">User name</label>
             <div class="form-label-group">

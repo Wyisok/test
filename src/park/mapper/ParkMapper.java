@@ -38,7 +38,7 @@ public interface ParkMapper {
 	 * @param parkId
 	 * @return
 	 */
-	@Select("select * from PARK where parkId = #{0}")
+	@Select("select * from PARK where park_id = #{0}")
 	Park getParkById(String parkId);
 	
 	@Insert("insert into PARK values(#{parkId},#{parkName},#{parkSpotNum},#{address},#{lngLat},#{charge},#{chargeType},#{state})")
