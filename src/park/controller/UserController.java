@@ -1,12 +1,20 @@
 package park.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,21 +33,21 @@ import park.utils.JsonDate2String;
 import park.utils.JsonDateValueProcessor;
 import park.utils.Page;
 
-
 @Controller
 public class UserController {
 	@Autowired
 	UserService userService;
-	
+
 	/**
 	 * 获取用户分页信息
+	 * 
 	 * @param allData
 	 * @param dataTablePage
 	 * @return
 	 */
 	@RequestMapping("/getUserTable")
 	@ResponseBody
-	public String getAll(@RequestParam String  allData, DataTablePage<User> dataTablePage){
+	public String getAll(@RequestParam String allData, DataTablePage<User> dataTablePage) {
 		JSONArray jsonArray = JSONArray.fromObject(allData);
 		String sEcho = null; // 记录操作的次数,从前端取的数 ， 一会返回这个参数，两者相同
 		int iDisplayStart = 0; // 起始索引
@@ -55,65 +63,99 @@ public class UserController {
 				iDisplayStart = obj.getInt("value");
 			}
 			if ("iDisplayLength".equals(obj.get("name"))) {
-				iDisplayLength = obj.getInt("value");   
+				iDisplayLength = obj.getInt("value");
 			}
 		}
 		dataTablePage.setsEcho(sEcho);
 		dataTablePage.setiDisplayStart(iDisplayStart);
 		dataTablePage.setiDisplayLength(iDisplayLength);
-		dataTablePage.setiDisplayEnd(iDisplayStart+iDisplayLength);
+		dataTablePage.setiDisplayEnd(iDisplayStart + iDisplayLength);
 		userService.getAllUser(dataTablePage);
-	
-		//--最后得封装成jsonobject对象，才能显示出来
-		JSONObject json = JSONObject.fromObject(dataTablePage,JsonDate2String.getDateStringJsonConfig());
+
+		// --最后得封装成jsonobject对象，才能显示出来
+		JSONObject json = JSONObject.fromObject(dataTablePage, JsonDate2String.getDateStringJsonConfig());
 		System.out.println(json);
 		return json.toString();
 	}
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
 	/**
 	 * 根据主键查询
 	 */
 	@RequestMapping("/getuser")
 	@ResponseBody
-	public ModelAndView getById(@RequestParam(value="userid")String userid){
-		ModelAndView mv= new ModelAndView();
-		System.out.println(userid);
-		User user=userService.getById(userid);
-		mv.addObject("user",user);
-		mv.setViewName("tables");
-		return mv;
+	public User getById(@RequestParam(value = "userId") String userid) {
+		User user = userService.getById(userid);
+		return user;
 	}
-	
-	
-	
-	
-	/*public ModelAndView getAll(@RequestParam("id")Integer id){
-		ModelAndView mv= new ModelAndView();
-		Page page=userService.getAllUsers(id);
-	    mv.addObject("page",page);
-		mv.setViewName("userType/userList"); 
-		return mv;
-	}*/
-	
+
 	/**
-	 * ����ɾ��
+	 * 用户登录
+	 * 
+	 * @param user
+	 * @param httpSession
+	 * @return
+	 * @throws Exception
 	 */
+	@RequestMapping("/add")
 	@ResponseBody
-	@RequestMapping(value="/userdelete")
-	public ModelAndView deleteEmpById(@RequestParam("id")String id){
-		ModelAndView mv=new ModelAndView();
-		userService.detele(id);
-		mv.setViewName("userType/userList");
+	public ModelAndView login(User user, HttpServletResponse response, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		User user2 = userService.login(user);
+		if (user2 != null) {
+			System.out.println("登录ok");
+			session.setAttribute("user", user2);
+			Cookie c = new Cookie("username", URLEncoder.encode(user.getUsername(), "UTF-8"));
+			c.setMaxAge(Integer.MAX_VALUE);
+			response.addCookie(c);
+			mv.setViewName("index");
+		} else {
+			mv.addObject("msg", "用户名或密码错误");
+			mv.setViewName("login");
+		}
 		return mv;
 	}
+
+	/**
+	 * 用户注册
+	 */
+	@RequestMapping("/registerUser")
+	@ResponseBody
+	public ModelAndView register(User user) {
+		ModelAndView mv = new ModelAndView();
+		userService.register(user);
+		mv.addObject("msg", "注册成功");
+		mv.setViewName("login");
+		return mv;
+
+	}
+
+	/**
+	 * 更新用户
+	 */
+	@RequestMapping("/update")
+	@ResponseBody
+	public String update(User user) {
+		userService.update(user);
+
+		return "ok1";
+	}
+
+	/**
+	 * 删除用户
+	 */
+	@RequestMapping("/userdelete")
+	@ResponseBody
+	public String deleteEmpById(@RequestParam("userId") String id) {
+		userService.detele(id);
+		return "ok2";
+	}
+
+	/*
+	 * public ModelAndView getAll(@RequestParam("id")Integer id){ ModelAndView
+	 * mv= new ModelAndView(); Page page=userService.getAllUsers(id);
+	 * mv.addObject("page",page); mv.setViewName("userType/userList"); return
+	 * mv; }
+	 */
 }

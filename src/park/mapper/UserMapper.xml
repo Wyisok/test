@@ -1,18 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="park.mapper.UserMapper">
-<resultMap id="BaseResultMap" type="park.pojo.User">
- <id column="user_id" jdbcType="VARCHAR" property="useId" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-      <result column="email" jdbcType="VARCHAR" property="email" />
-       <result column="balance" jdbcType="DOUBLE" property="balance" />
-        <result column="state" jdbcType="INTEGER" property="state" />
-         <result column="create_time" jdbcType="DATE" property="createTime" />
-</resultMap>
+	<resultMap id="BaseResultMap" type="park.pojo.User">
+		<id column="user_id" jdbcType="VARCHAR" property="useId" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="telephone" jdbcType="VARCHAR" property="telephone" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="balance" jdbcType="DOUBLE" property="balance" />
+		<result column="state" jdbcType="INTEGER" property="state" />
+		<result column="create_time" jdbcType="DATE" property="createTime" />
+
+
+	</resultMap>
+	
+		<update id="update" parameterType="park.pojo.User">
+			update user
+			<set>
+				<if test="username!=null">
+					username=#{username},
+				</if>
+				<if test="password!=null">
+					password=#{password},
+				</if>
+				<if test="name!=null">
+					name=#{name},
+				</if>
+				<if test="sex!=sex">
+					sex=#{sex},
+				</if>
+				<if test="telephone!=null">
+					telephone=#{telephone},
+				</if>
+				<if test="email!=null">
+					email=#{email},
+				</if>
+				<if test="balance!=null">
+					balance=#{balance},
+				</if>
+				<if test="state!=null">
+					state=#{state}
+				</if>
+
+
+			</set>
+			where user_id=#{userId}
+		</update>
 
 
 

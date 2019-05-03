@@ -10,21 +10,27 @@ import org.apache.ibatis.annotations.Update;
 import park.pojo.User;
 
 public interface UserMapper {
-@Select("select count(*) from USER") 
+@Select("select count(*) from user") 
 int selectAll();
-@Select("select * from USER")
+@Select("select * from user")
 List<User> getAll();
-@Select("select * from USER limit #{0},#{1}")
+@Select("select * from user limit #{0},#{1}")
 List<User> getPage(int start , int end);
 
-@Select("select * from user where userId=#{0}")
+@Select("select * from user where user_id=#{0}")
 User selectById(String user_id);
-@Insert("insert into USER values(#{userId} ,#{username},#{password},#{name},#{sex},#{telephone},#{email},#{balance},#{state},#{createTime})")
+@Insert("insert into user values(#{userId} ,#{username},#{password},#{name},#{sex},#{telephone},#{email},#{balance},#{state},#{createTime})")
 void add(User user);
-@Update("update user set name=#{name} where user_id=#{userId}")
+//@Update("update user set username=#{name},password=#{password},name=#{name},sex=#{sex},telephone=#{telephone},email=#{email},balance=#{balance},state=#{state}  where user_id=#{userId}")
 void update(User user);
-@Delete("delete from user where userId=#{0}")
+@Delete("delete from user where user_id=#{0}")
 void deleteById(String user_id);
+
+@Select ("select * from user where username=#{username} and password=#{password} ")
+User login(User user);
+
+
+
 
 
 

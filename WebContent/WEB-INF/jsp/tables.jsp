@@ -97,6 +97,90 @@
 			</div>
 		</div>
 	</div>
+	<!-- 员工编辑的模态框 -->
+	<div class="modal fade" id="AddModel"  role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">用户编辑</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="userSaveForm" role="form">
+						<div class="form-group">
+							<label class="col-sm-10 control-label">ID：
+							</label>
+							<input type="text" class="form-control" id="userId"name="userId"
+									readonly="readonly">
+							
+						</div>
+						<div class="form-group">
+							<label for="inputPassword" class="col-sm-2 control-label">Username</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputUsername" name="username"
+									>
+							</div>
+						</div>
+							<div class="form-group">
+							<label for="inputPassword" class="col-sm-2 control-label">Password</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputPassword"name="password"
+									placeholder="Password">
+							</div>
+						</div>
+							<div class="form-group">
+							<label for="inputPassword" class="col-sm-2 control-label">Real name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputName"name="name"
+									placeholder="Password">
+							</div>
+						</div>
+							<div class="form-group">
+							<label for="inputPassword" class="col-sm-2 control-label">电话</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputTelephone"name="telephone"
+									placeholder="Password">
+							</div>
+						</div>
+							<div class="form-group">
+							<label for="inputPassword" class="col-sm-2 control-label">邮箱</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputEmail"name="email"
+									placeholder="Email">
+							</div>
+						</div>
+							<div class="form-group">
+							<label for="inputPassword" class="col-sm-2 control-label">余额</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputBalance"name="balance"
+									placeholder="balance">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword" class="col-sm-2 control-label">状态</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputState"name="state"
+									placeholder="Password">
+							</div>
+						</div>
+						
+					</form>
+
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" id="saveUser" onclick="save()" class="btn btn-primary">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<%@include file="footer.jsp" %>
+
+
+
 
 	<!-- 表格的初始化 与后台交互  -->
 	<script type="text/javascript">
@@ -111,7 +195,8 @@
 		        bInfo:true,//是否显示表格相关信息
 		        "autoWidth": true,//自动列宽
 				 "columns": [
-					 {"data": null,"targets": 0},
+					 //{"data": null,"targets": 0},
+					 {"data": "userId"},
 					{ "data": "username" },
 					{ "data": "password" },
 					{ "data": "name" },
@@ -121,15 +206,23 @@
 					{ "data": "state" },
 					{ "data": "balance" },
 					{ "data": "createTime" }],
-		            "columnDefs": [
+					
+		          "columnDefs": [
 			                {
 			                    "targets": [10],
 			                    "data": "userId",
 			                    "render": function(data, type, full) {
-			                        return "<a href='/update?userId=" + data + "'>Update</a>";
+				
+			
+				
+				
+				
+				
+				
+			                        return "<button type='button' onclick=getUser('"+data+"') id='edit' class='btn btn-primary' data-toggle='modal' data-target='#AddModel' edit-id='userId'> 编辑</button><button type='button' id='delete1'  onclick=del('"+data+"') class='btn btn-danger' value='userId'>删除</button>";
 			                    }
 			                }
-			            ],
+			            ], 
 					 
 					 // numbers:数字
 		            // simple:前一页，后一页
@@ -142,7 +235,7 @@
 				"bServerSide" : true, //这个用来指明是通过服务端来取数据    
 				"sAjaxSource" : "${pageContext.request.contextPath}/getUserTable", //这个是请求的地址    
 				"fnServerData" : retrieveData,// 获取数据的处理函数    
-				"fnDrawCallback": function(){
+		/* 		"fnDrawCallback": function(){
 					　　var api = this.api();
 					　　//var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
 					　　api.column(0).nodes().each(function(cell, i) {
@@ -151,9 +244,67 @@
 					　　　　cell.innerHTML =  i + 1;
 
 					　　}); 
-					}
+					} */
 			}); 
+			
+		
 		});
+		 <!-- 
+		 删除按钮单机事件
+		 -->
+		 
+		 function del(userId){
+			 $.ajax({
+					url : "${pageContext.request.contextPath}/userdelete?userId="+userId,
+					type : "POST",
+					success : function(result) {
+						reloadTable();
+					}
+				});
+		 }
+		 <!-- 
+		 保存按钮事件
+		 -->
+		 function save(){
+			
+			 
+				$.ajax({
+					url : "${pageContext.request.contextPath}/update",
+					type : "POST",
+					data : $("#userSaveForm").serialize(),
+					success : function(data) {
+						//$("#AddModel").modal('hide');
+						reloadTable();
+					}
+				});
+		 }
+		 <!-- 根据id查询员工信息 -->
+		 function getUser(userId){
+				$.ajax({
+					url : "${pageContext.request.contextPath}/getuser?userId="+userId,
+					type : "POST",
+					success : function(data) {
+						$("#userId").val(data.userId);
+						$("#inputUsername").val(data.username);
+						$("#inputPassword").val(data.password);
+						$("#inputName").val(data.name);
+						$("#inputTelephone").val(data.telephone);
+						$("#inputEmail").val(data.email);
+						$("#inputBalance").val(data.balance);
+						$("#inputState").val(data.state);
+						
+						
+					}
+				});
+		 }
+		
+		 
+		 
+		 
+		 
+		 
+		 
+			
 		// 3个参数的名字可以随便命名,但必须是3个参数,少一个都不行    
 		function retrieveData(sSource, allData, fnCallback) {
 			$.ajax({
@@ -176,7 +327,12 @@
 			table.ajax.reload( function( json) {
 			} , false);
 		}
+		
+		
 	</script>
+	
+	
+
 </body>
 
 </html>

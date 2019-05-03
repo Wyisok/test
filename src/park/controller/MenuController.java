@@ -30,5 +30,6 @@ public class MenuController {
 	public String getLogin(){
 		return "login";
 	}
+	
 
 }
