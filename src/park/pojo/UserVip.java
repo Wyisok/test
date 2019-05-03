@@ -1,4 +1,4 @@
-package park.mapper;
+package park.pojo;
 
 import java.util.Date;
 
