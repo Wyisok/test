@@ -10,6 +10,7 @@ import park.mapper.RoleMapper;
 import park.mapper.UserMapper;
 import park.mapper.UserRoleMapper;
 import park.pojo.Park;
+import park.pojo.ParkQueryVo;
 import park.pojo.Role;
 import park.pojo.User;
 import park.pojo.UserRole;
@@ -51,11 +52,12 @@ public class ParkService {
 	 * dataTables表格插件，获取一页数据
 	 * @param allData
 	 */
-	public void getPageParks(Page4DataTable<Park> allData) {
+	public void getPageParks(Page4DataTable<ParkQueryVo> allData) {
 		int count = parkMapper.getParkNum();
 		allData.setiTotalRecords(count);
 		allData.setiTotalDisplayRecords(count);
-		List<Park> page = parkMapper.getPageParks(allData.getiDisplayStart(),allData.getiDisplayStart()+allData.getiDisplayLength());
+		List<ParkQueryVo> page = parkMapper.getPageParks(allData.getiDisplayStart(),allData.getiDisplayStart()+allData.getiDisplayLength());
+		System.out.println(page);
 		allData.setAaData(page);
 	}
 	/**

@@ -12,12 +12,10 @@
 		<result column="balance" jdbcType="DOUBLE" property="balance" />
 		<result column="state" jdbcType="INTEGER" property="state" />
 		<result column="create_time" jdbcType="DATE" property="createTime" />
-
-
 	</resultMap>
 	
 		<update id="update" parameterType="park.pojo.User">
-			update user
+			update USER
 			<set>
 				<if test="username!=null">
 					username=#{username},
@@ -43,8 +41,6 @@
 				<if test="state!=null">
 					state=#{state}
 				</if>
-
-
 			</set>
 			where user_id=#{userId}
 		</update>

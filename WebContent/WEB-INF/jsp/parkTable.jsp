@@ -186,7 +186,7 @@
 					{ "data": "parkSpotNum"},
 					{ "data": "address"},
 					{ "data": "charge"},
-					{ "data": "chargeType"},
+					{ "data": "dictItemName"},
 					{ "data": "state"},
 					],
 		          "columnDefs": [

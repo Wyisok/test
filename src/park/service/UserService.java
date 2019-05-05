@@ -36,7 +36,6 @@ public class UserService {
 	 */
 	public void update(User user){
 		userMapper.update(user);
-		
 	}
 	/**
 	 * 删除用户

@@ -29,7 +29,8 @@
 		<div class="card card-register mx-auto mt-5">
 			<div class="card-header">加盟停车场</div>
 			<div class="card-body">
-				<form method="post" action="${pageContext.request.contextPath}/registerPark">
+				<form method="post"
+					action="${pageContext.request.contextPath}/registerPark">
 					<div id="first">
 						<div class="form-group">
 							<div class="form-row">
@@ -93,13 +94,10 @@
 					<div id="second" style="display: none">
 						<div class="form-group">
 							<div class="form-inline">
-								<div data-toggle="distpicker" id="ssq">
-									<select class="form-control "></select> <select
-										class="form-control "></select> <select class="form-control "></select>
-								</div>
-								<div>
-									<label for="container" class="text-info"> &nbsp;
-										&nbsp;请标注地址信息</label>
+								<div data-toggle="distpicker" id="ssq" class="col-md-12">
+									<select class="form-control"></select> 
+									<select class="form-control "></select> 
+									<select class="form-control "></select>
 								</div>
 							</div>
 						</div>
@@ -134,9 +132,9 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<input type="number" id="inputNum" class="form-control" name="parkSpotNum"
-											placeholder="车位总数" required="required" min="0" max="9999">
-										<label for="inputNum">车位总数</label>
+										<input type="number" id="inputNum" class="form-control"
+											name="parkSpotNum" placeholder="车位总数" required="required"
+											min="0" max="9999"> <label for="inputNum">车位总数</label>
 									</div>
 								</div>
 							</div>
@@ -177,7 +175,8 @@
 					</div>
 				</form>
 				<div class="text-center">
-					<a class="d-block small mt-3" href="${pageContext.request.contextPath}/login">前往登录</a> 
+					<a class="d-block small mt-3"
+						href="${pageContext.request.contextPath}/login">前往登录</a>
 				</div>
 			</div>
 		</div>
@@ -196,7 +195,7 @@
 		map.addControl(new BMap.MapTypeControl()); //添加控件：地图类型控件，默认在右上方；
 		map.addControl(new BMap.ScaleControl()); //添加控件：地图显示比例的控件，默认在左下方；
 		map.addControl(new BMap.OverviewMapControl()); //添加控件：地图的缩略图的控件，默认在右下方； TrafficControl  
-
+		var geoc = new BMap.Geocoder();//地图解析-经纬度——》地理位置
 		map.addEventListener("click", getlng_lat); //地图添加点击事件
 
 		//	var marker = new BMap.Marker(point);  // 创建标注
@@ -222,8 +221,6 @@
 		////			alert(html.innerHTML)
 		//		} //这一段可以不要，只不过是为学习更深层次应用而加入的。
 		});
-	
-
 
 		function register() {
 			$("form").submit();
@@ -244,59 +241,72 @@
 			var district = $("#ssq select").eq(2).val();
 			var address = province + "*" + city + "*" + district;
 			$("#address").attr("value", address);
-			$("#ssq").distpicker('destroy');
-			$('#ssq').distpicker({
-				province: addComp.province,
-				city: addComp.city,
-				district: addComp.district
+			geoc.getLocation(e.point, function(rs) {
+				var addComp = rs.addressComponents;
+				$("#ssq").distpicker('destroy');
+				$('#ssq').distpicker({
+					province : addComp.province,
+					city : addComp.city,
+					district : addComp.district
+				});
 			});
 			//	map.removeOverlay(marker);
 		}
 	</script>
 	<script type="text/javascript">
-	$(function() {
-		//初始化省市区级联插件
-		$('#ssq').distpicker();
-		//设置监听，如果地区变化，则地图变化
-		$("#ssq").on('change', function(e) {
-			var address = "";
-			//					var code = $('select option:selected').val();
-			//					console.log(code);
-			//获取所有的option的值
-			$('select option:selected').each(function() {
-				//					alert($(this).val());
-				address = address + $(this).val();
+		$(function() {
+			//初始化省市区级联插件
+			$('#ssq').distpicker();
+			//设置监听，如果地区变化，则地图变化
+			$("#ssq").on('change', function(e) {
+				var address = "";
+				//					var code = $('select option:selected').val();
+				//					console.log(code);
+				//获取所有的option的值
+				$('select option:selected').each(function() {
+					//					alert($(this).val());
+					address = address + $(this).val();
+				});
+				//				alert(address);
+				//地图变化
+				setCity(address);
 			});
-			//				alert(address);
-			//地图变化
-			setCity(address);
+			$("#chargeType")
+					.on(
+							"change",
+							function(e) {
+								if ($('#chargeType option:selected').val() == ""
+										|| $('#chargeType option:selected')
+												.text() == "免费") {
+									$("#charge").attr("placeholder", "金额");
+									$("#charge").prop("disabled", true);
+								} else if ($('#chargeType option:selected')
+										.text() == "标准收费") {
+									$("#charge").attr("placeholder", "金额/小时");
+									$("#charge").prop("disabled", false);
+								} else if ($('#chargeType option:selected')
+										.text() == "按次收费") {
+									$("#charge").attr("placeholder", "金额/次");
+									$("#charge").prop("disabled", false);
+								} else {
+									$("#charge").attr("placeholder", "金额/一次");
+									$("#charge").prop("disabled", false);
+								}
+							});
+			//验证密码是否相同
+			$("#confirmPassword").blur(
+					function() {
+						if ($("#inputPassword").val() != ""
+								&& $("#inputPassword").val() != $(
+										"#confirmPassword").val()) {
+							$("#confirmPassword").addClass(" is-invalid");
+						}
+					});
+			$("#confirmPassword").focusin(function() {
+				$("#confirmPassword").removeClass("is-invalid");
+			});
+
 		});
-		$("#chargeType").on("change",function(e){
-			if($('#chargeType option:selected').val()=="" || $('#chargeType option:selected').text()=="免费"){
-				$("#charge").attr("placeholder","金额");
-				$("#charge").prop("disabled",true);
-			}else if($('#chargeType option:selected').text()=="标准收费"){
-				$("#charge").attr("placeholder","金额/小时");
-				$("#charge").prop("disabled",false);
-			}else if($('#chargeType option:selected').text()=="按次收费"){
-				$("#charge").attr("placeholder","金额/次");
-				$("#charge").prop("disabled",false);
-			}else{
-				$("#charge").attr("placeholder","金额/一次");
-				$("#charge").prop("disabled",false);
-			}
-		});
-		//验证密码是否相同
-		$("#confirmPassword").blur(function(){
-			if($("#inputPassword").val()!="" && $("#inputPassword").val()!=$("#confirmPassword").val()){
-				$("#confirmPassword").addClass(" is-invalid");
-			}
-		});
-		$("#confirmPassword").focusin(function(){
-			$("#confirmPassword").removeClass("is-invalid");
-		});
-		
-	});
 	</script>
 </body>
 </html>

@@ -162,7 +162,6 @@ public class UserController {
 	@ResponseBody
 	public String update(User user) {
 		userService.update(user);
-
 		return "ok1";
 	}
 

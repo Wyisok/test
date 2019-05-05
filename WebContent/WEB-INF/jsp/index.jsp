@@ -178,7 +178,7 @@
 				<!-- Area Chart Example-->
 				<div class="card mb-3">
 					<div class="card-header">
-						<i class="fas fa-chart-area"></i> Area Chart Example
+						<i class="fas fa-chart-area"></i> 业务流水图表
 					</div>
 					<div class="card-body">
 						<canvas id="myAreaChart" width="100%" height="30"></canvas>
@@ -216,18 +216,18 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<h5 class="modal-title" id="exampleModalLabel">确定要退出登录吗?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">Ã</span>
+						<span aria-hidden="true"></span>
 					</button>
 				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
+				<!-- <div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div> -->
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+						data-dismiss="modal">取消</button>
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/login">退出</a>
 				</div>
 			</div>
 		</div>

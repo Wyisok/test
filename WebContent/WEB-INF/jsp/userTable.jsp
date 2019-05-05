@@ -171,7 +171,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" id="saveUser" onclick="save()" class="btn btn-primary">保存</button>
+					<button type="button" id="saveUser" onclick="save()" data-dismiss="modal" class="btn btn-primary">保存</button>
 				</div>
 			</div>
 		</div>
@@ -256,14 +256,12 @@
 		 保存按钮事件
 		 -->
 		 function save(){
-			
-			 
 				$.ajax({
 					url : "${pageContext.request.contextPath}/update",
 					type : "POST",
 					data : $("#userSaveForm").serialize(),
 					success : function(data) {
-						//$("#AddModel").modal('hide');
+						//$("#AddModel").modal().hide();
 						reloadTable();
 					}
 				});
@@ -282,8 +280,6 @@
 						$("#inputEmail").val(data.email);
 						$("#inputBalance").val(data.balance);
 						$("#inputState").val(data.state);
-						
-						
 					}
 				});
 		 }

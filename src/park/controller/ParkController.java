@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import park.pojo.Park;
+import park.pojo.ParkQueryVo;
 import park.pojo.Role;
 import park.pojo.User;
 import park.pojo.UserRole;
@@ -48,7 +49,7 @@ public class ParkController {
 	 */
 	@RequestMapping("/getParkTable")
 	@ResponseBody
-	public Page4DataTable<Park> getParkTable(Page4DataTable<Park> allData) {
+	public Page4DataTable<ParkQueryVo> getParkTable(Page4DataTable<ParkQueryVo> allData) {
 		//List<DataTableBean> allData
 		System.out.println(allData);
 		parkService.getPageParks(allData);

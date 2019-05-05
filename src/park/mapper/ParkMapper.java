@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import park.pojo.Park;
+import park.pojo.ParkQueryVo;
 
 public interface ParkMapper {
 	/**
@@ -31,8 +32,8 @@ public interface ParkMapper {
 	 * @param end
 	 * @return
 	 */
-	@Select("select * from PARK limit #{0},#{1}")
-	List<Park> getPageParks(int start, int end);
+	@Select("select * from PARK p left join TB_BASE_DICT t on p.charge_type=t.dict_id limit #{0},#{1}")
+	List<ParkQueryVo> getPageParks(int start, int end);
 	/**
 	 * 根据parkId获取停车场
 	 * @param parkId
