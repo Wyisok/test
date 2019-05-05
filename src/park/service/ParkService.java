@@ -14,6 +14,7 @@ import park.pojo.Role;
 import park.pojo.User;
 import park.pojo.UserRole;
 import park.utils.DataTablePage;
+import park.utils.Page4DataTable;
 import park.utils.UUIDUtils;
 
 /* 
@@ -48,14 +49,14 @@ public class ParkService {
 	}
 	/**
 	 * dataTables表格插件，获取一页数据
-	 * @param dataTablePage
+	 * @param allData
 	 */
-	public void getPageParks(DataTablePage<Park> dataTablePage) {
+	public void getPageParks(Page4DataTable<Park> allData) {
 		int count = parkMapper.getParkNum();
-		dataTablePage.setiTotalRecords(count);
-		dataTablePage.setiTotalDisplayRecords(count);
-		List<Park> page = parkMapper.getPageParks(dataTablePage.getiDisplayStart(), dataTablePage.getiDisplayEnd());
-		dataTablePage.setAaData(page);
+		allData.setiTotalRecords(count);
+		allData.setiTotalDisplayRecords(count);
+		List<Park> page = parkMapper.getPageParks(allData.getiDisplayStart(),allData.getiDisplayStart()+allData.getiDisplayLength());
+		allData.setAaData(page);
 	}
 	/**
 	 * 根据parkId获取停车场

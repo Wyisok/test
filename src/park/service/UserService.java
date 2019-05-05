@@ -6,11 +6,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import park.mapper.UserMapper;
 import park.pojo.User;
 import park.utils.DataTablePage;
-import park.utils.Page;
 
 @Service
 public class UserService {
@@ -23,39 +21,6 @@ public class UserService {
 		return userMapper.getAll();
 	}
 	
-	/*public Page getAllUsers(int currentPageNo){
-		
-		Page page=new Page();
-		
-		//��װ��ǰҳ��
-		page.setCurrentPageNo(currentPageNo);
-		//��װ�ܼ�¼��
-		Integer allRecord = userMapper.selectAll();
-		page.setRecordNo(allRecord);
-		//��װ��ҳ��
-		Integer allPageNo=null;
-		if(page.getRecordNo()%page.getPageSize()==0){
-			allPageNo=page.getRecordNo()/page.getPageSize();
-		}else{
-			allPageNo=page.getRecordNo()/page.getPageSize()+1;
-		}
-		page.setPageNo(allPageNo);
-		System.out.println("��ҳ��"+page.getPageNo());
-		//�ж�
-		if(page.getCurrentPageNo()<=0){
-			page.setCurrentPageNo(1);                          //�ѵ�ǰҳ����Ϊ1
-		}else if(page.getCurrentPageNo()>page.getPageNo()){
-			page.setCurrentPageNo(page.getPageNo());          //�ѵ�ǰҳ����Ϊ���ҳ��
-		}
-		
-		
-		//��װ��ҳ��ʾ������
-		Integer start=(page.getCurrentPageNo()-1)*page.getPageSize();
-		Integer end=page.getCurrentPageNo()*page.getPageSize()+1;
-		List<User> emplist=userMapper.getAll(start, end);
-		page.setUserList(emplist);
-		return page;
-	}*/
 	
 	/**
 	 * ����û�

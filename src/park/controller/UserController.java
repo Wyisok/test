@@ -36,7 +36,6 @@ import park.service.UserService;
 import park.utils.DataTablePage;
 import park.utils.JsonDate2String;
 import park.utils.JsonDateValueProcessor;
-import park.utils.Page;
 
 @Controller
 public class UserController {
@@ -107,7 +106,6 @@ public class UserController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/parkUserLogin")
-	@ResponseBody
 	public ModelAndView login(User user, HttpServletResponse response, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		System.out.println(user.getUsername());
@@ -135,7 +133,7 @@ public class UserController {
 			Cookie c = new Cookie("username", URLEncoder.encode(user.getUsername(), "UTF-8"));
 			c.setMaxAge(Integer.MAX_VALUE);
 			response.addCookie(c);
-			mv.setViewName("index");
+			mv.setViewName("redirect:index");
 		} else {
 			mv.addObject("msg", "用户名或密码错误");
 			mv.setViewName("login");

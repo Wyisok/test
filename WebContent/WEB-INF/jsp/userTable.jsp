@@ -26,11 +26,10 @@
 							id="dataTable" width="100%" cellspacing="0">
 							<thead>
 								<tr>
-									<th>用户ID</th>
+									<th></th>
 									<th>用户名</th>
 									<th>密码</th>
 									<th>姓名</th>
-									<th>性别</th>
 									<th>电话</th>
 									<th>邮箱</th>
 									<th>余额</th>
@@ -195,29 +194,23 @@
 		        bInfo:true,//是否显示表格相关信息
 		        "autoWidth": true,//自动列宽
 				 "columns": [
-					 //{"data": null,"targets": 0},
-					 {"data": "userId"},
-					{ "data": "username" },
-					{ "data": "password" },
-					{ "data": "name" },
-					{ "data": "sex" },
-					{ "data": "telephone" },
-					{ "data": "email" },
+					{"data": "userId","width":10},
+					{ "data": "username"},
+					{ "data": "password"},
+					{ "data": "name"},
+					//{ "data": "sex","targets": null},
+					{ "data": "telephone"},
+					{ "data": "email"},
 					{ "data": "state" },
-					{ "data": "balance" },
-					{ "data": "createTime" }],
+					{ "data": "balance"},
+					{ "data": "createTime"}
+					],
 					
 		          "columnDefs": [
 			                {
-			                    "targets": [10],
+			                    "targets": [9],
 			                    "data": "userId",
 			                    "render": function(data, type, full) {
-				
-			
-				
-				
-				
-				
 				
 			                        return "<button type='button' onclick=getUser('"+data+"') id='edit' class='btn btn-primary' data-toggle='modal' data-target='#AddModel' edit-id='userId'> 编辑</button><button type='button' id='delete1'  onclick=del('"+data+"') class='btn btn-danger' value='userId'>删除</button>";
 			                    }
@@ -235,7 +228,7 @@
 				"bServerSide" : true, //这个用来指明是通过服务端来取数据    
 				"sAjaxSource" : "${pageContext.request.contextPath}/getUserTable", //这个是请求的地址    
 				"fnServerData" : retrieveData,// 获取数据的处理函数    
-		/* 		"fnDrawCallback": function(){
+		 		"fnDrawCallback": function(){
 					　　var api = this.api();
 					　　//var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
 					　　api.column(0).nodes().each(function(cell, i) {
@@ -244,14 +237,11 @@
 					　　　　cell.innerHTML =  i + 1;
 
 					　　}); 
-					} */
+					} 
 			}); 
 			
 		
 		});
-		 <!-- 
-		 删除按钮单机事件
-		 -->
 		 
 		 function del(userId){
 			 $.ajax({
@@ -327,8 +317,6 @@
 			table.ajax.reload( function( json) {
 			} , false);
 		}
-		
-		
 	</script>
 	
 	

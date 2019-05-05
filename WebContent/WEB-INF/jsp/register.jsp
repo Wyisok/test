@@ -244,6 +244,12 @@
 			var district = $("#ssq select").eq(2).val();
 			var address = province + "*" + city + "*" + district;
 			$("#address").attr("value", address);
+			$("#ssq").distpicker('destroy');
+			$('#ssq').distpicker({
+				province: addComp.province,
+				city: addComp.city,
+				district: addComp.district
+			});
 			//	map.removeOverlay(marker);
 		}
 	</script>

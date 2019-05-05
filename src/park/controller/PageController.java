@@ -30,13 +30,17 @@ public class PageController {
 	public String getIndex(){
 		return "index";
 	}
+	@RequestMapping("index")
+	public String getIndex1() {
+		return "index";
+	}
 	/**
-	 * 转发到tables.jsp页面
+	 * 转发到userTable.jsp页面
 	 * @return
 	 */
 	@RequestMapping("/user")
-	public String getTable(){
-		return "tables";
+	public String getUserTable(){
+		return "userTable";
 	}
 	/**
 	 * 转发到login.jsp页面
@@ -56,6 +60,14 @@ public class PageController {
 		System.out.println(parkChargeTypes);
 		model.addAttribute("parkChargeTypes",parkChargeTypes);
 		return "register";
+	}
+	/**
+	 * 转发到parkTable.jsp
+	 * @return
+	 */
+	@RequestMapping("/park")
+	public String getParkTable() {
+		return "parkTable";
 	}
 
 }
