@@ -7,11 +7,13 @@ import org.apache.catalina.tribes.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import park.pojo.BaseDict;
 import park.pojo.Park;
 import park.pojo.ParkQueryVo;
 import park.pojo.Role;
@@ -49,7 +51,7 @@ public class ParkController {
 	 */
 	@RequestMapping("/getParkTable")
 	@ResponseBody
-	public Page4DataTable<ParkQueryVo> getParkTable(Page4DataTable<ParkQueryVo> allData) {
+	public Page4DataTable<Park> getParkTable(Page4DataTable<Park> allData) {
 		//List<DataTableBean> allData
 		System.out.println(allData);
 		parkService.getPageParks(allData);
@@ -78,8 +80,30 @@ public class ParkController {
 	 */
 	@RequestMapping("/getPark")
 	@ResponseBody
-	public Park getParkById(@RequestParam String parkId) {
-		Park park = parkService.getParkById(parkId);
+	public Park getParkById(@RequestParam String parkId, Model model) {
+		Park park = parkService.getParkQueryVoById(parkId);
 		return park;
+	}
+	/**
+	 * app 获取所有的停车场信息
+	 * @author whp
+	 * @return
+	 */
+	@RequestMapping("/getParks")
+	@ResponseBody
+	public List<Park> getParks(){
+		List<Park> parks = parkService.getAllParks();
+		System.out.println(parks);
+		return parks;
+	}
+	/**
+	 * 删除停车场 通过id
+	 * @author whp
+	 * @param parkId
+	 */
+	@RequestMapping("/delPark")
+	@ResponseBody
+	public void delPark(@RequestParam String parkId) {
+		parkService.delParkById(parkId);
 	}
 }

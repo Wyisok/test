@@ -36,6 +36,8 @@ public class Park {
 	 */
 	private int state;
 
+	
+	
 	@Override
 	public String toString() {
 		return "Park [parkId=" + parkId + ", parkName=" + parkName + ", parkSpotNum=" + parkSpotNum + ", address="

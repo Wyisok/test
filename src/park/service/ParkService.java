@@ -52,11 +52,11 @@ public class ParkService {
 	 * dataTables表格插件，获取一页数据
 	 * @param allData
 	 */
-	public void getPageParks(Page4DataTable<ParkQueryVo> allData) {
+	public void getPageParks(Page4DataTable<Park> allData) {
 		int count = parkMapper.getParkNum();
 		allData.setiTotalRecords(count);
 		allData.setiTotalDisplayRecords(count);
-		List<ParkQueryVo> page = parkMapper.getPageParks(allData.getiDisplayStart(),allData.getiDisplayStart()+allData.getiDisplayLength());
+		List<Park> page = parkMapper.getPageParks(allData.getiDisplayStart(),allData.getiDisplayStart()+allData.getiDisplayLength());
 		System.out.println(page);
 		allData.setAaData(page);
 	}
@@ -89,9 +89,6 @@ public class ParkService {
 		userRole.setUserId(userId);
 		userRole.setIdentityId(parkId);
 		
-		System.out.println(park);
-		System.out.println(user);
-		
 		parkMapper.insertPark(park);
 		userMapper.add(user);
 		/** 为用户添加停车场员工角色 *   */
@@ -116,4 +113,26 @@ public class ParkService {
 		}
 		return park;
 	}
+	/**
+	 * 删除停车场
+	 * 通过id
+	 * @author whp
+	 * @param parkId
+	 */
+	public void delParkById(String parkId) {
+		parkMapper.deleteParkById(parkId);
+	}
+	/**
+	 * 根据停车场id获取 停车场所有的信息
+	 * @author whp
+	 * @param parkId
+	 * @return
+	 */
+	public Park getParkQueryVoById(String parkId) {
+		
+		return parkMapper.getParkById(parkId);
+	}
+	
+	
+	
 }

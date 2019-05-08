@@ -2,6 +2,8 @@ package park.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import park.pojo.BaseDict;
+import park.pojo.User;
 import park.service.BaseDictService;
 
 @Controller
@@ -27,11 +30,19 @@ public class PageController {
 	 * @return
 	 */
 	@RequestMapping("")
-	public String getIndex(){
+	public String getIndex(HttpSession session){
+		User user = (User) session.getAttribute("user");
+		if(user == null) {
+			return "login";
+		}
 		return "index";
 	}
 	@RequestMapping("index")
-	public String getIndex1() {
+	public String getIndex1(HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if(user == null) {
+			return "login";
+		}
 		return "index";
 	}
 	/**
@@ -56,9 +67,7 @@ public class PageController {
 	 */
 	@RequestMapping("/register")
 	public String getRegister(Model model){
-		List<BaseDict> parkChargeTypes = baseDictService.getBaseDictByCode(parkChargeType);
-		System.out.println(parkChargeTypes);
-		model.addAttribute("parkChargeTypes",parkChargeTypes);
+		loadParkChargeTypes(model);
 		return "register";
 	}
 	/**
@@ -66,8 +75,18 @@ public class PageController {
 	 * @return
 	 */
 	@RequestMapping("/park")
-	public String getParkTable() {
+	public String getParkTable(Model model) {
+		loadParkChargeTypes(model);
 		return "parkTable";
 	}
-
+	/**
+	 * 给转发的页面加载 停车场收费类型信息
+	 * @author whp
+	 * @param model
+	 */
+	public void loadParkChargeTypes(Model model) {
+		List<BaseDict> parkChargeTypes = baseDictService.getBaseDictByCode(parkChargeType);
+		System.out.println(parkChargeTypes);
+		model.addAttribute("parkChargeTypes",parkChargeTypes);
+	}
 }

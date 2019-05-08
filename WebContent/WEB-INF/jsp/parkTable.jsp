@@ -4,7 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>停车场</title>
+<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<style type="text/css">
+.table{ /*数据表格标题文字居中*/
+text-align: center;
+vertical-align: middle!important;
+}
+</style>
 </head>
 <body id="page-top">
 	<div id="content-wrapper">
@@ -134,21 +141,38 @@
 								<!-- <span class="input-group-text">.00</span> -->
 							</div>
 						</div>
-						<div class="form-group ">
-							<div class="input-group-prepend">
-								<span class="input-group-text">收费金额</span>
-								<span class="input-group-text">￥</span> <input type="number" maxlength="9999" min="0"
-									class="form-control" placeholder="" id="inputCharge" name="charge"
-									>
-								<span class="input-group-text">.00</span> 
+						
+							<div class="form-group">
+							<div class="form-inline">
+								<select class="form-control col-md-5" name="chargeType"
+									id="inputChargeType">
+									<%-- <option value="">--收费类型--</option>
+									<c:forEach items="${parkChargeTypes}" var="item">
+										<option value="${item.dictItemName}">${item.dictItemName}</option>
+									</c:forEach> --%>
+									
+									<option value="">--收费类型--</option>
+									<c:forEach items="${parkChargeTypes}" var="item">
+										<option value="${item.dictItemName} ">${item.dictItemName}</option>
+									</c:forEach>
+									
+								</select>
+								<div class="input-group col-md-5">
+									<div class="input-group-prepend">
+										<span class="input-group-text">￥</span> 
+										<input type="number"  id="inputCharge" name="charge" style="width:168px;"
+											class="form-control"  maxlength="9999" min="0"> 
+										<span class="input-group-text">.00</span>
+									</div>
+								</div>
 							</div>
 						</div>
-							<div class="form-group ">
+						
+						
+						<div class="form-group ">
 							<div class="input-group-prepend">
-								<span class="input-group-text">是否启用</span> <input type="text"
-									class="form-control" placeholder="" id="inputState" name="state"
-									>
-								<!-- <span class="input-group-text">.00</span> -->
+								<label class="radio-inline form-control"><input type="radio" name="state"   value="1"  id="inputState" >启用</label>
+								<label class="radio-inline form-control"><input type="radio" name="state"   value="0" id="inputState" >禁用</label>
 							</div>
 						</div>
 					</form>
@@ -186,16 +210,26 @@
 					{ "data": "parkSpotNum"},
 					{ "data": "address"},
 					{ "data": "charge"},
-					{ "data": "dictItemName"},
-					{ "data": "state"},
+					{ "data": "chargeType"},
+					//{ "data": "state"},
 					],
 		          "columnDefs": [
+			    				{
+				                    "targets": [6],
+				                    "data": "state",
+				                    "render": function(data, type, full) {
+										if(data==1){
+				                        return '<span class="badge badge-pill badge-success">已启用</span>';
+										}else{
+											return '<span class="badge badge-pill badge-warning">已禁用</span>';
+										}
+				                    }
+				                },
 			                {
 			                    "targets": [7],
 			                    "data": "parkId",
 			                    "render": function(data, type, full) {
-				
-			                        return "<button type='button' onclick=getPark('"+data+"')  id='edit' class='btn btn-primary' data-toggle='modal' data-target='#AddModel' edit-id='userId'> 编辑</button><button type='button' id='delete1'  onclick=delPark('"+data+"') class='btn btn-danger' value='userId'>删除</button>";
+			                        return '<a href="" onclick=getPark("'+data+'") data-toggle="modal" data-target="#AddModel"  class="badge badge-info" style="font-size:15px">编辑</a>&nbsp;&nbsp;<a href=""  onclick=delPark("'+data+'") class="badge badge-danger" style="font-size:15px">删除</a>';
 			                    }
 			                }
 			            ], 
@@ -225,10 +259,9 @@
 		
 		});
 		 
-		 function delPark(userId){
+		 function delPark(parkId){
 			 $.ajax({
-					url : "${pageContext.request.contextPath}/delPark?",
-					param:{"parkId":parkId},
+					url : "${pageContext.request.contextPath}/delPark?parkId="+parkId,
 					type : "POST",
 					success : function(result) {
 						reloadTable();
@@ -250,25 +283,21 @@
 		 function getPark(parkId){
 				$.ajax({
 					url : "${pageContext.request.contextPath}/getPark",
+					
 					data: "parkId="+parkId,
 					type : "POST",
+					async : false,
 					success : function(data) {
 						$("#inputParkId").val(data.parkId);
 						$("#inputParkName").val(data.parkName);
 						$("#inputParkSpotNum").val(data.parkSpotNum);
 						$("#inputCharge").val(data.charge);
-						$("#inputState").val(data.state);
-						
-				/* 		$("#userId").val(data.userId);
-						$("#inputUsername").val(data.username);
-						$("#inputPassword").val(data.password);
-						$("#inputName").val(data.name);
-						$("#inputTelephone").val(data.telephone);
-						$("#inputEmail").val(data.email);
-						$("#inputBalance").val(data.balance);
-						$("#inputState").val(data.state); */
+						$("[name='state'][value='"+data.state+"']").prop("checked",true);
+						$("#inputChargeType").val(data.chargeType);
+						//$("#inputChargeType").find("option[text='"+data.chargeType+"']").prop("selected",true);
 					}
 				});
+				
 		 }
 		
 		 

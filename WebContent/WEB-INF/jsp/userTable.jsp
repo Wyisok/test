@@ -28,7 +28,7 @@
 								<tr>
 									<th></th>
 									<th>用户名</th>
-									<th>密码</th>
+								<!-- 	<th>密码</th> -->
 									<th>姓名</th>
 									<th>电话</th>
 									<th>邮箱</th>
@@ -196,19 +196,19 @@
 				 "columns": [
 					{"data": "userId","width":10},
 					{ "data": "username"},
-					{ "data": "password"},
+					//{ "data": "password"},
 					{ "data": "name"},
 					//{ "data": "sex","targets": null},
-					{ "data": "telephone"},
-					{ "data": "email"},
-					{ "data": "state" },
+					{ "data": "telephone","width":80},
+					{ "data": "email","width":130},
 					{ "data": "balance"},
-					{ "data": "createTime"}
+					{ "data": "state","width":65 },
+					{ "data": "createTime","width":85}
 					],
 					
 		          "columnDefs": [
 			                {
-			                    "targets": [9],
+			                    "targets": [8],
 			                    "data": "userId",
 			                    "render": function(data, type, full) {
 				

@@ -7,6 +7,7 @@ package park.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -32,8 +33,8 @@ public interface ParkMapper {
 	 * @param end
 	 * @return
 	 */
-	@Select("select * from PARK p left join TB_BASE_DICT t on p.charge_type=t.dict_id limit #{0},#{1}")
-	List<ParkQueryVo> getPageParks(int start, int end);
+	@Select("select * from PARK  limit #{0},#{1}")
+	List<Park> getPageParks(int start, int end);
 	/**
 	 * 根据parkId获取停车场
 	 * @param parkId
@@ -44,4 +45,10 @@ public interface ParkMapper {
 	
 	@Insert("insert into PARK values(#{parkId},#{parkName},#{parkSpotNum},#{address},#{lngLat},#{charge},#{chargeType},#{state})")
 	void insertPark(Park park);
+	
+	@Delete("delete from PARK where park_id = #{0}")
+	void deleteParkById(String parkId);
+	
+	//@Select("select * from PARK p left join TB_BASE_DICT t on p.charge_type=t.dict_id where park_id = #{0}")
+//	ParkQueryVo getParkQueryVoById(String parkId);
 }

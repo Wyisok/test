@@ -13,12 +13,12 @@
 <%@include file="header.jsp"%>
 </head>
 
-<body id="page-top">
+<body id="page-top" >
 
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
 		<a class="navbar-brand mr-1"
-			href="${pageContext.request.contextPath }">智能停车管理系统</a>
+			href="${pageContext.request.contextPath}">智能停车管理系统</a>
 
 		<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
 			id="sidebarToggle" href="#">
@@ -62,8 +62,8 @@
 			</a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">用户名：${user.username }</a> <a
-						class="dropdown-item" href="#">个人信息</a>
+					<a class="dropdown-item" href="#">用户名：${user.username }</a> 
+					<a class="dropdown-item" href="#">个人信息</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="#" data-toggle="modal"
 						data-target="#logoutModal">退出登录</a>
@@ -87,8 +87,6 @@
 			</a></li>
 			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('user'); />
 				<i class="fas fa-fw fa-table"></i> <span>用户管理</span></a></li>
-
-
 		</ul>
 		<script type="text/javascript">
 	function openAjaxURL(url){

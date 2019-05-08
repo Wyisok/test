@@ -11,8 +11,8 @@ private String name;
 private String sex;
 private String telephone;
 private String email;
-private String balance;
-private int state;
+private double balance;
+private int state=0;
 private Date createTime;
 public String getUserId() {
 	return userId;
@@ -56,14 +56,14 @@ public String getEmail() {
 public void setEmail(String email) {
 	this.email = email;
 }
-public String getBalance() {
-	return balance;
-}
-public void setBalance(String balance) {
-	this.balance = balance;
-}
 public int getState() {
 	return state;
+}
+public double getBalance() {
+	return balance;
+}
+public void setBalance(double balance) {
+	this.balance = balance;
 }
 public void setState(int state) {
 	this.state = state;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import park.mapper.UserMapper;
 import park.pojo.User;
 import park.utils.DataTablePage;
+import park.utils.UUIDUtils;
 
 @Service
 public class UserService {
@@ -72,13 +73,9 @@ public class UserService {
 	 * 用户注册
 	 */
 	public void register(User user) {
-		String a=UUID.randomUUID().toString();
+		String a=UUIDUtils.getUUID();
 		user.setUserId(a);
-		System.out.println(a);
 		userMapper.add(user);
-		 userMapper.add(user);
-		
-		
 	}
 	
 }

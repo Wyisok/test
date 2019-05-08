@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,8 +109,6 @@ public class UserController {
 	@RequestMapping("/parkUserLogin")
 	public ModelAndView login(User user, HttpServletResponse response, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		System.out.println(user.getUsername());
-		System.out.println(user.getPassword());
 		User user2 = userService.login(user);
 		
 		if (user2 != null) {
@@ -144,23 +143,25 @@ public class UserController {
 	/**
 	 * 用户注册
 	 */
-	@RequestMapping("/registerUser")
-	@ResponseBody
-	public ModelAndView register(User user) {
-		ModelAndView mv = new ModelAndView();
-		userService.register(user);
-		mv.addObject("msg", "注册成功");
-		mv.setViewName("login");
-		return mv;
-
-	}
-
+//	@RequestMapping("/registerUser")
+//	@ResponseBody
+//	public ModelAndView register(User user) {
+//		ModelAndView mv = new ModelAndView();
+//		userService.register(user);
+//		mv.addObject("msg", "注册成功");
+//		mv.setViewName("login");
+//		return mv;
+//	}
+	
+	
+	
 	/**
 	 * 更新用户
 	 */
 	@RequestMapping("/update")
 	@ResponseBody
 	public String update(User user) {
+		System.out.println(user);
 		userService.update(user);
 		return "ok1";
 	}
@@ -181,4 +182,59 @@ public class UserController {
 	 * mv.addObject("page",page); mv.setViewName("userType/userList"); return
 	 * mv; }
 	 */
+	
+	
+	
+	/**
+	 * app ajax  普通用户登录
+	 * @author whp
+	 * @param user1
+	 * @return
+	 */
+	@RequestMapping("/userLogin")
+	@ResponseBody
+	public User appLogin(User user1) {
+		System.out.println(user1);
+		User user = userService.login(user1);
+		System.out.println(user);
+//		if(user!=null) {
+//			return "true";
+//		}
+		return user;
+	}
+	/**
+	 * app ajax 普通用户注册
+	 * @author whp
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping("/userReg")
+	@ResponseBody
+	public String userReg(User user) {
+		try {
+			userService.register(user);
+			return "true";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "false";
+		}
+	}
+	/**
+	 * app ajax 普通用户更新
+	 * @author whp
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping("/userUpdate")
+	@ResponseBody
+	public String userUpdate(@RequestBody User user) {
+		try {
+			System.out.println(user);
+			userService.update(user);
+			return "true";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "false";
+		}
+	}
 }

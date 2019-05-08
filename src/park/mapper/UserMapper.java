@@ -26,7 +26,7 @@ void update(User user);
 @Delete("delete from USER where user_id=#{0}")
 void deleteById(String user_id);
 
-@Select ("select * from USER where username=#{username} and password=#{password} ")
+@Select ("select * from USER where username=#{username} and password=#{password}")
 User login(User user);
 
 
