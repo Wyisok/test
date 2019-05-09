@@ -62,7 +62,7 @@
 			</a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">用户名：${user.username }</a> 
+					<a class="dropdown-item" href="#">用户名：${subject.principal}</a> 
 					<a class="dropdown-item" href="#">个人信息</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="#" data-toggle="modal"
@@ -85,7 +85,7 @@
 			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('park');>
 					<i class="fas fa-fw fa-chart-area"></i> <span>停车场管理</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('user'); />
+			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('usertable'); />
 				<i class="fas fa-fw fa-table"></i> <span>用户管理</span></a></li>
 		</ul>
 		<script type="text/javascript">
@@ -225,7 +225,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">取消</button>
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/login">退出</a>
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/doLogout">退出</a>
 				</div>
 			</div>
 		</div>

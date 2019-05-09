@@ -5,4 +5,14 @@
   <id property="roleId" column="role_id" />
   <result property="roleName" column="role_name"/>
 </resultMap>
+
+<select id="selectAllByUserName" parameterType="String" resultType="park.pojo.Role">
+select * from user u 
+				left join tb_user_role ur 
+					on u.user_id = ur.user_id  
+				left join Role r 
+					on r.role_id = ur.role_id 
+			where u.username = #{0}
+</select>
+
 </mapper>

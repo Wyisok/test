@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class PageController {
 	 */
 	@RequestMapping("")
 	public String getIndex(HttpSession session){
-		User user = (User) session.getAttribute("user");
+		Subject user = (Subject) session.getAttribute("subject");
 		if(user == null) {
 			return "login";
 		}
@@ -39,7 +40,8 @@ public class PageController {
 	}
 	@RequestMapping("index")
 	public String getIndex1(HttpSession session) {
-		User user = (User) session.getAttribute("user");
+		Subject user = (Subject) session.getAttribute("subject");
+		System.out.println("session中的user"+user);
 		if(user == null) {
 			return "login";
 		}
@@ -49,7 +51,7 @@ public class PageController {
 	 * 转发到userTable.jsp页面
 	 * @return
 	 */
-	@RequestMapping("/user")
+	@RequestMapping("/usertable")
 	public String getUserTable(){
 		return "userTable";
 	}
@@ -76,9 +78,18 @@ public class PageController {
 	 */
 	@RequestMapping("/park")
 	public String getParkTable(Model model) {
+		System.out.println("/park执行");
 		loadParkChargeTypes(model);
 		return "parkTable";
 	}
+	/**
+	 * 无权限跳转界面
+	 */
+	@RequestMapping("/unauthorized")
+	public String noPerms() {
+		return "unauthorized";
+	}
+	
 	/**
 	 * 给转发的页面加载 停车场收费类型信息
 	 * @author whp

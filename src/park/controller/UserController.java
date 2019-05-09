@@ -13,9 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +64,7 @@ public class UserController {
 	@RequestMapping("/getUserTable")
 	@ResponseBody
 	public String getAll(@RequestParam String allData, DataTablePage<User> dataTablePage) {
+		System.out.println("getusertables执行");
 		JSONArray jsonArray = JSONArray.fromObject(allData);
 		String sEcho = null; // 记录操作的次数,从前端取的数 ， 一会返回这个参数，两者相同
 		int iDisplayStart = 0; // 起始索引
@@ -107,7 +114,23 @@ public class UserController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/parkUserLogin")
-	public ModelAndView login(User user, HttpServletResponse response, HttpSession session) throws Exception {
+	public String login(Model model,User user){
+		Subject subject = SecurityUtils.getSubject();
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+		try {
+			subject.login(token);
+			Session session = subject.getSession();
+			session.setAttribute("subject", subject);
+			return "redirect:index";
+
+		} catch (AuthenticationException e) {
+			model.addAttribute("error", "用户名密码错误");
+			return "login";
+		}
+	}
+	/*public ModelAndView login(User user, HttpServletResponse response, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		User user2 = userService.login(user);
 		
@@ -116,7 +139,7 @@ public class UserController {
 			List<Role> roles = roleService.getRolesByUserId(user2.getUserId());
 			for(Role role : roles) {
 				if("停车场用户".equalsIgnoreCase(role.getRoleName())) {
-					/** 获取到当前用户所在的停车场 */
+					*//** 获取到当前用户所在的停车场 *//*
 					Park park = parkService.getParkByUserId(user2.getUserId());
 					session.setAttribute("park", park);
 				}
@@ -138,7 +161,7 @@ public class UserController {
 			mv.setViewName("login");
 		}
 		return mv;
-	}
+	}*/
 
 	/**
 	 * 用户注册
@@ -194,12 +217,8 @@ public class UserController {
 	@RequestMapping("/userLogin")
 	@ResponseBody
 	public User appLogin(User user1) {
-		System.out.println(user1);
 		User user = userService.login(user1);
-		System.out.println(user);
-//		if(user!=null) {
-//			return "true";
-//		}
+
 		return user;
 	}
 	/**

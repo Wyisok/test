@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="park.mapper.RoleMenuMapper">
+<resultMap id="RoleMenuMapper" type="park.pojo.RoleMenu">
+<id column="id" jdbcType="INTEGER" property="id"></id>
+<result column="role_id" jdbcType="VARCHAR" property="roleId"></result>
+<result column="menu_id" jdbcType="VARCHAR" property="menuId"></result>
+</resultMap>
+</mapper>

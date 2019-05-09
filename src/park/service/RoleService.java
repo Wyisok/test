@@ -3,6 +3,7 @@ package park.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,18 @@ public class RoleService {
 	public List<Role> getAllRole() {
 		return roleMapper.selectAllRole();
 	}
+	/**
+	 * 根据用户名获取用户角色
+	 */
+	public Set<String> selectAllByUserName(String username){
+		Set<String> result =new HashSet<>();
+		List<Role> list=roleMapper.selectAllByUserName(username);
+		for(Role role:list){
+			result.add(role.getRoleName());
+		}
+		return result;
+	}
+	
 	/**
 	 * 根据角色名称获取角色对象
 	 * @param roleName

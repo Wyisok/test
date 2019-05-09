@@ -7,6 +7,8 @@ package park.pojo;
 public class Role {
 private String roleId;
 private String roleName;
+private String identity_id;
+
 public String getRoleId() {
 	return roleId;
 }
@@ -18,6 +20,13 @@ public String getRoleName() {
 }
 public void setRoleName(String roleName) {
 	this.roleName = roleName;
+}
+
+public String getIdentity_id() {
+	return identity_id;
+}
+public void setIdentity_id(String identity_id) {
+	this.identity_id = identity_id;
 }
 @Override
 public String toString() {

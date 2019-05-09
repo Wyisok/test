@@ -15,42 +15,47 @@ import park.utils.UUIDUtils;
 public class UserService {
 	@Autowired
 	UserMapper userMapper;
+
 	/**
 	 * 查询全部
 	 */
-	public List<User> getAllUser(){
+	public List<User> getAllUser() {
 		return userMapper.getAll();
 	}
-	
-	
+
 	/**
 	 * ����û�
-	 * @return 
+	 * 
+	 * @return
 	 */
-	public void addUser(User user){
-		UUID uuid  =  UUID.randomUUID(); 
+	public void addUser(User user) {
+		UUID uuid = UUID.randomUUID();
 		user.setUserId(uuid.toString());
 		userMapper.add(user);
 	}
+
 	/**
 	 * 更新用户
 	 */
-	public void update(User user){
+	public void update(User user) {
 		userMapper.update(user);
 	}
+
 	/**
 	 * 删除用户
 	 */
-	public void detele(String user_id){
-	userMapper.deleteById(user_id);
+	public void detele(String user_id) {
+		userMapper.deleteById(user_id);
 	}
+
 	/**
 	 * 根据id查询用户
+	 * 
 	 * @param userid
 	 * @return
 	 */
 	public User getById(String userid) {
-		
+
 		return userMapper.selectById(userid);
 	}
 
@@ -61,21 +66,31 @@ public class UserService {
 		List<User> page = userMapper.getPage(dataTablePage.getiDisplayStart(), dataTablePage.getiDisplayEnd());
 		dataTablePage.setAaData(page);
 	}
+
+	/**
+	 * 根据用户名查询
+	 */
+	public User selectByUsername(String username) {
+		return userMapper.selectByUsername(username);
+	}
+
 	/**
 	 * 用户登录
+	 * 
 	 * @param user
 	 * @return
 	 */
 	public User login(User user) {
 		return userMapper.login(user);
 	}
+
 	/**
 	 * 用户注册
 	 */
 	public void register(User user) {
-		String a=UUIDUtils.getUUID();
+		String a = UUIDUtils.getUUID();
 		user.setUserId(a);
 		userMapper.add(user);
 	}
-	
+
 }

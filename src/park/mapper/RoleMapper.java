@@ -10,13 +10,16 @@ public interface RoleMapper {
 	@Select("select * from ROLE")
 	List<Role> selectAllRole();
 	
+	@Select("select * from ROLE where role_id = #{0}")
+	Role selectByPrimaryKey(String roleId);
+	
+	List<Role> selectAllByUserName(String username);
+	
     int deleteByPrimaryKey(String roleId);
 
     int insert(Role record);
 
     int insertSelective(Role record);
-    @Select("select * from ROLE where role_id = #{0}")
-    Role selectByPrimaryKey(String roleId);
 
     int updateByPrimaryKeySelective(Role record);
 
