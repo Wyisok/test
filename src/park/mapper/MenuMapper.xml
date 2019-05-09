@@ -8,15 +8,17 @@
 <result column="menu_Url" jdbcType="VARCHAR" property="menuUrl"></result>
 <result column="parent_menu_id" jdbcType="VARCHAR" property="parentMenuId"></result>
 </resultMap>
+
+
 <select id="selectAllByUserName" parameterType="String" resultType="park.pojo.Menu">
-select * from user u 
-				left join tb_user_role ru 
-					on u.user_id = ru.user_id left 
-				join role r 
+select * from USER u 
+				left join TB_USER_ROLE ru 
+					on u.user_id = ru.user_id 
+				left join ROLE r 
 					on r.role_id = ru.role_id 
-				left join tb_role_menu rm 
+				left join TB_ROLE_MENU rm 
 					on r.role_id = rm.role_id 
-				left join menu m 
+				left join MENU m 
 					on m.menu_id = rm.menu_id 
 			where u.username =#{0}
 </select>

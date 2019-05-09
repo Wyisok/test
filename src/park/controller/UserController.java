@@ -40,9 +40,9 @@ import park.service.ParkService;
 import park.service.RoleService;
 import park.service.UserRoleService;
 import park.service.UserService;
-import park.utils.DataTablePage;
 import park.utils.JsonDate2String;
 import park.utils.JsonDateValueProcessor;
+import park.utils.Page4DataTable;
 
 @Controller
 public class UserController {
@@ -63,36 +63,13 @@ public class UserController {
 	 */
 	@RequestMapping("/getUserTable")
 	@ResponseBody
-	public String getAll(@RequestParam String allData, DataTablePage<User> dataTablePage) {
-		System.out.println("getusertables执行");
-		JSONArray jsonArray = JSONArray.fromObject(allData);
-		String sEcho = null; // 记录操作的次数,从前端取的数 ， 一会返回这个参数，两者相同
-		int iDisplayStart = 0; // 起始索引
-		int iDisplayLength = 0; // 每页显示的行数，[10,25,50,100]
-		System.out.println(jsonArray);
-		// 这里获取从前台传递过来的参数，
-		for (int i = 0; i < jsonArray.size(); i++) {
-			JSONObject obj = (JSONObject) jsonArray.get(i);
-			if ("sEcho".equals(obj.get("name"))) {
-				sEcho = obj.getString("value");
-			}
-			if ("iDisplayStart".equals(obj.get("name"))) {
-				iDisplayStart = obj.getInt("value");
-			}
-			if ("iDisplayLength".equals(obj.get("name"))) {
-				iDisplayLength = obj.getInt("value");
-			}
-		}
-		dataTablePage.setsEcho(sEcho);
-		dataTablePage.setiDisplayStart(iDisplayStart);
-		dataTablePage.setiDisplayLength(iDisplayLength);
-		dataTablePage.setiDisplayEnd(iDisplayStart + iDisplayLength);
-		userService.getAllUser(dataTablePage);
-
+	public JSONObject getAll(Page4DataTable<User> allData) {
+		userService.getAllUser(allData);
+		System.out.println(allData);
 		// --最后得封装成jsonobject对象，才能显示出来
-		JSONObject json = JSONObject.fromObject(dataTablePage, JsonDate2String.getDateStringJsonConfig());
+		JSONObject json = JSONObject.fromObject(allData, JsonDate2String.getDateStringJsonConfig());
 		System.out.println(json);
-		return json.toString();
+		return json;
 	}
 
 	/**

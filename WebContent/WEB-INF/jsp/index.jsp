@@ -87,21 +87,7 @@
 			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('park')>
 					<i class="fas fa-fw fa-chart-area"></i> <span>停车场管理</span>
 			</a></li>
-<<<<<<< Upstream, based on origin/master
-<<<<<<< Upstream, based on origin/master
 			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('usertable'); />
-=======
-=======
-<<<<<<< HEAD
->>>>>>> 35ccf10 科大
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('user')>
-<<<<<<< Upstream, based on origin/master
->>>>>>> 8fcbdda 车位管理实现
-=======
-=======
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('usertable'); />
->>>>>>> branch 'master' of https://github.com/Wyisok/test.git
->>>>>>> 35ccf10 科大
 				<i class="fas fa-fw fa-table"></i> <span>用户管理</span></a></li>
 		</ul>
 <script type="text/javascript">

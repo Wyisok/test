@@ -8,9 +8,10 @@ import park.pojo.Menu;
 import park.pojo.User;
 
 public interface MenuMapper {
-@Select("select * from menu") 
+@Select("select * from MENU") 
 List<Menu> selectAll();
-@Select("select * from menu where menu_id=#{0}")
+@Select("select * from MENU where menu_id=#{0}")
 Menu selectById(String menuId);
+
 List<Menu> selectAllByUserName(String username);
 }

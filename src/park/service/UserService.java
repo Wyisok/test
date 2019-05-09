@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import park.mapper.UserMapper;
 import park.pojo.User;
-import park.utils.DataTablePage;
+import park.utils.Page4DataTable;
 import park.utils.UUIDUtils;
 
 @Service
@@ -59,12 +59,12 @@ public class UserService {
 		return userMapper.selectById(userid);
 	}
 
-	public void getAllUser(DataTablePage<User> dataTablePage) {
+	public void getAllUser(Page4DataTable<User> allData) {
 		int count = userMapper.selectAll();
-		dataTablePage.setiTotalRecords(count);
-		dataTablePage.setiTotalDisplayRecords(count);
-		List<User> page = userMapper.getPage(dataTablePage.getiDisplayStart(), dataTablePage.getiDisplayEnd());
-		dataTablePage.setAaData(page);
+		allData.setiTotalRecords(count);
+		allData.setiTotalDisplayRecords(count);
+		List<User> page = userMapper.getPage(allData.getiDisplayStart(),allData.getiDisplayStart()+allData.getiDisplayLength());
+		allData.setAaData(page);
 	}
 
 	/**

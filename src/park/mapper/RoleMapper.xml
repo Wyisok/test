@@ -7,10 +7,10 @@
 </resultMap>
 
 <select id="selectAllByUserName" parameterType="String" resultType="park.pojo.Role">
-select * from user u 
-				left join tb_user_role ur 
+select * from USER u 
+				left join TB_USER_ROLE ur 
 					on u.user_id = ur.user_id  
-				left join Role r 
+				left join ROLE r 
 					on r.role_id = ur.role_id 
 			where u.username = #{0}
 </select>

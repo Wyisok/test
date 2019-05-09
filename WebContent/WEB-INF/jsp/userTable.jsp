@@ -291,9 +291,7 @@
 		function retrieveData(sSource, allData, fnCallback) {
 			$.ajax({
 				url : sSource, //这个就是请求地址对应sAjaxSource    
-			 	data : {
-					"allData" : JSON.stringify(allData)
-				}, //这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数 ,分页,排序,查询等的值    
+			 	data : allData, //这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数 ,分页,排序,查询等的值    
 				type : 'post',
 				dataType : 'json',
 				async : false,
