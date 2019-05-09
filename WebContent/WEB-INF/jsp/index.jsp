@@ -62,26 +62,9 @@
 			<i class="fas fa-user-circle fa-fw">
 			</i>
 			</a>
-<<<<<<< Upstream, based on origin/master
-<<<<<<< Upstream, based on origin/master
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">用户名：${subject.principal}</a> 
-=======
-=======
-<<<<<<< HEAD
->>>>>>> 35ccf10 科大
-			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">用户名：${user.username }</a> 
-<<<<<<< Upstream, based on origin/master
->>>>>>> 8fcbdda 车位管理实现
-=======
-=======
-				<div class="dropdown-menu dropdown-menu-right"
-					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">用户名：${subject.principal}</a> 
->>>>>>> branch 'master' of https://github.com/Wyisok/test.git
->>>>>>> 35ccf10 科大
 					<a class="dropdown-item" href="#">个人信息</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href=""  data-toggle="modal"
