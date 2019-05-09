@@ -24,8 +24,10 @@ public class PageController {
 	 */
 	@Value("${park_charge_type}")
 	private String parkChargeType;
-	
-	
+	@Value("${park_spot_type}")
+	private String parkSpotType;
+	@Value("${park_vip_type}")
+	private String parkVipType;
 	/**
 	 * 转发到index.jsp页面
 	 * @return
@@ -82,6 +84,13 @@ public class PageController {
 		loadParkChargeTypes(model);
 		return "parkTable";
 	}
+	@RequestMapping("/parkSpot")
+	public String getParkSpotTable(Model model) {
+		loadParkSpotTypes(model);
+		return "parkSpotTable";
+	}
+	
+	
 	/**
 	 * 无权限跳转界面
 	 */
@@ -97,7 +106,24 @@ public class PageController {
 	 */
 	public void loadParkChargeTypes(Model model) {
 		List<BaseDict> parkChargeTypes = baseDictService.getBaseDictByCode(parkChargeType);
-		System.out.println(parkChargeTypes);
 		model.addAttribute("parkChargeTypes",parkChargeTypes);
+	}
+	/**
+	 * 给转发的页面加载 车位类型信息
+	 * @author whp
+	 * @param model
+	 */
+	public void loadParkSpotTypes(Model model) {
+		List<BaseDict> parkSpotTypes = baseDictService.getBaseDictByCode(parkSpotType);
+		model.addAttribute("parkSpotTypes", parkSpotTypes);
+	}
+	/**
+	 * 加载 停车场优惠类型信息
+	 * @author whp
+	 * @param model
+	 */
+	public void loadParkVipTypes(Model model) {
+		List<BaseDict> parkVipTypes = baseDictService.getBaseDictByCode(parkVipType);
+		model.addAttribute("ParkVipTypes",parkVipTypes);
 	}
 }

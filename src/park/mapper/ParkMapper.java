@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import park.pojo.Park;
 import park.pojo.ParkQueryVo;
@@ -48,6 +49,9 @@ public interface ParkMapper {
 	
 	@Delete("delete from PARK where park_id = #{0}")
 	void deleteParkById(String parkId);
+//	@Update("update PARK")
+	void updateParkInfo(Park park);
+	
 	
 	//@Select("select * from PARK p left join TB_BASE_DICT t on p.charge_type=t.dict_id where park_id = #{0}")
 //	ParkQueryVo getParkQueryVoById(String parkId);

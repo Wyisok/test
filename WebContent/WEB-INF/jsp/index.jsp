@@ -55,21 +55,28 @@
 					<a class="dropdown-item" href="#">Something else here</a>
 				</div></li>
 			<li class="nav-item dropdown no-arrow mx-1"></li>
-			<li class="nav-item dropdown no-arrow"><a
-				class="nav-link dropdown-toggle" href="#" id="userDropdown"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <i class="fas fa-user-circle fa-fw"></i>
+			
+			
+			<li class="nav-item dropdown no-arrow">
+			<a class="nav-link dropdown-toggle"  id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> 
+			<i class="fas fa-user-circle fa-fw">
+			</i>
 			</a>
+<<<<<<< Upstream, based on origin/master
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">用户名：${subject.principal}</a> 
+=======
+			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+					<a class="dropdown-item" href="#">用户名：${user.username }</a> 
+>>>>>>> 8fcbdda 车位管理实现
 					<a class="dropdown-item" href="#">个人信息</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#" data-toggle="modal"
+					<a class="dropdown-item" href=""  data-toggle="modal"
 						data-target="#logoutModal">退出登录</a>
-				</div></li>
+				</div>
+			</li>
 		</ul>
-
 	</nav>
 
 	<div id="wrapper">
@@ -79,16 +86,20 @@
 				href="${pageContext.request.contextPath}"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>首页</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('parkSpot');>
+			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('parkSpot')>
 					<i class="fas fa-fw fa-chart-area"></i> <span>车位管理</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('park');>
+			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('park')>
 					<i class="fas fa-fw fa-chart-area"></i> <span>停车场管理</span>
 			</a></li>
+<<<<<<< Upstream, based on origin/master
 			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('usertable'); />
+=======
+			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('user')>
+>>>>>>> 8fcbdda 车位管理实现
 				<i class="fas fa-fw fa-table"></i> <span>用户管理</span></a></li>
 		</ul>
-		<script type="text/javascript">
+<script type="text/javascript">
 	function openAjaxURL(url){
 		var url = "${pageContext.request.contextPath}/"+url;
 		$('#content-wrapper').load(url);
@@ -97,10 +108,6 @@
 
 		<div id="content-wrapper">
 			<div class="container-fluid">
-
-
-
-
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item active">仪表盘</li>
@@ -230,8 +237,11 @@
 			</div>
 		</div>
 	</div>
-	<%@include file="footer.jsp"%>
-	<script type="text/javascript">
+
+<%@include file="footer.jsp"%>
+<!-- Demo scripts for this page-->
+<script src="${pageContext.request.contextPath }/static/js/demo/chart-area-demo.js"></script>
+<script type="text/javascript">
 $(function(){
 	 $('.navbar-nav li').click(function(){
 	      $('.navbar-nav li').removeClass('active');
@@ -240,5 +250,4 @@ $(function(){
 })
 </script>
 </body>
-
 </html>

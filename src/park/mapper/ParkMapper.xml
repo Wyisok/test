@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="park.mapper.ParkMapper">
-	<resultMap id="park" type="park.pojo.Park">
+	<resultMap id="parkRM" type="park.pojo.Park">
 		<id property="parkId" column="park_id" />
 		<result property="parkName" column="park_name" />
 		<result property="parkSpotNum" column="park_spot_num" />
@@ -11,4 +11,18 @@
 		<result property="chargeType" column="charge_type" />
 		<result property="state" column="state" />
 	</resultMap>
+	
+	<update id="updateParkInfo" parameterType="park.pojo.Park">
+	 update PARK
+	<set>
+	<if test="parkName!=''">park_name=#{parkName},</if>
+	<if test="parkSpotNum!=''">park_spot_num=#{parkSpotNum},</if>
+	<if test="address!=null">address=#{address},</if>
+	<if test="lngLat!=null">lng_lat=#{lngLat},</if>
+	<if test="charge!=''">charge=#{charge},</if>
+	<if test="chargeType!=''">charge_type=#{chargeType},</if>
+	<if test="state!=null">state=#{state}</if>
+	</set>
+	where park_id=#{parkId}
+	</update>
 </mapper>

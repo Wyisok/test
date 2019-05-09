@@ -66,16 +66,15 @@
 	</div>
 	<!-- /.content-wrapper -->
 
-	</div>
 	<!-- /#wrapper -->
 
 	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
+<!-- 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
-	</a>
+	</a> -->
 
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+<!-- 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -95,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- 员工编辑的模态框 -->
 	<div class="modal fade" id="AddModel"  role="dialog">
 		<div class="modal-dialog">
@@ -252,9 +251,6 @@
 					}
 				});
 		 }
-		 <!-- 
-		 保存按钮事件
-		 -->
 		 function save(){
 				$.ajax({
 					url : "${pageContext.request.contextPath}/update",

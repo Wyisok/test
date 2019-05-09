@@ -57,7 +57,6 @@ public class ParkService {
 		allData.setiTotalRecords(count);
 		allData.setiTotalDisplayRecords(count);
 		List<Park> page = parkMapper.getPageParks(allData.getiDisplayStart(),allData.getiDisplayStart()+allData.getiDisplayLength());
-		System.out.println(page);
 		allData.setAaData(page);
 	}
 	/**
@@ -131,6 +130,15 @@ public class ParkService {
 	public Park getParkQueryVoById(String parkId) {
 		
 		return parkMapper.getParkById(parkId);
+	}
+	/**
+	 * 更新传入的的停车场信息
+	 * 根据id
+	 * @author whp
+	 * @param park
+	 */
+	public void updatePark(Park park) {
+	parkMapper.updateParkInfo(park);
 	}
 	
 	

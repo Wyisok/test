@@ -35,7 +35,10 @@ vertical-align: middle!important;
 									<th>收费金额</th>
 									<th>收费类型</th>
 									<th>状态</th>
-									<th></th>
+									<th>
+									<a class="badge badge-success" href="#" style="font-size:15px"><i class="fa fa-plus-square">&nbsp;添加</i></a>&nbsp;
+									<a class="badge badge-danger" href="#" style="font-size:15px"><i class="fa fa-minus-square">&nbsp;删除</i></a>
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -65,37 +68,6 @@ vertical-align: middle!important;
 
 	</div>
 	<!-- /.content-wrapper -->
-
-	</div>
-	<!-- /#wrapper -->
-
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- 员工编辑的模态框 -->
 	<div class="modal fade" id="AddModel"  role="dialog">
 		<div class="modal-dialog">
@@ -121,7 +93,7 @@ vertical-align: middle!important;
 							<div class="input-group-prepend">
 								<span class="input-group-text">停车场编号</span> <input type="text"
 									class="form-control" placeholder="" id="inputParkId" name="parkId"
-									disabled="disabled" >
+									readonly="readonly">
 								<!-- <span class="input-group-text">.00</span> -->
 							</div>
 						</div>
@@ -182,7 +154,7 @@ vertical-align: middle!important;
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" id="saveUser" onclick="save()" class="btn btn-primary">保存</button>
+					<button type="button" id="saveUser" onclick="save()" class="btn btn-primary" data-dismiss="modal">保存</button>
 				</div>
 			</div>
 		</div>
@@ -229,7 +201,7 @@ vertical-align: middle!important;
 			                    "targets": [7],
 			                    "data": "parkId",
 			                    "render": function(data, type, full) {
-			                        return '<a href="" onclick=getPark("'+data+'") data-toggle="modal" data-target="#AddModel"  class="badge badge-info" style="font-size:15px">编辑</a>&nbsp;&nbsp;<a href=""  onclick=delPark("'+data+'") class="badge badge-danger" style="font-size:15px">删除</a>';
+			                        return '<a href="#" onclick=getPark("'+data+'") data-toggle="modal" data-target="#AddModel"  class="badge badge-info" style="font-size:15px"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;<a href="#"  onclick=delPark("'+data+'") class="badge badge-danger" style="font-size:15px"><i class="fa fa-trash"></i></a>';
 			                    }
 			                }
 			            ], 
@@ -263,6 +235,7 @@ vertical-align: middle!important;
 			 $.ajax({
 					url : "${pageContext.request.contextPath}/delPark?parkId="+parkId,
 					type : "POST",
+					async : true,
 					success : function(result) {
 						reloadTable();
 					}
@@ -272,6 +245,7 @@ vertical-align: middle!important;
 				$.ajax({
 					url : "${pageContext.request.contextPath}/updatePark",
 					type : "POST",
+					async : true,
 					data : $("#userSaveForm").serialize(),
 					success : function(data) {
 						$("#AddModel").modal('hide');
