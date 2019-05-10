@@ -26,5 +26,15 @@
     </foreach>
 	</insert>
 	
+	<update id="updateParkSpotById" parameterType="parkSpot">
+	update PARK_SPOT
+	<set>
+		<if test="spotType!=null">spot_type=#{spotType},</if>
+		<if test="state!=null">state=#{state}</if>
+	</set>
+	where park_spot_id = #{parkSpotId}
+	</update>
+	
+	
 	
 </mapper>

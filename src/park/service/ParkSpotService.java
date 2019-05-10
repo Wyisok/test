@@ -71,7 +71,6 @@ public class ParkSpotService {
 		List<ParkSpot> list = new ArrayList<ParkSpot>();//存放要添加的车位
 		//获取数据库中当前车位地点的编号最大值
 		int maxSpotNum = (parkSpotMapper.getMaxSpotNum(spotPlace,parkId)==null)?0:parkSpotMapper.getMaxSpotNum(spotPlace,parkId);
-		System.out.println(maxSpotNum);
 		//从编号最大值开始往后进行编号
 		for(int i=1; i<=spotAddNum; i++) {
 			int spotNum=maxSpotNum+i;//车位编号
@@ -80,12 +79,17 @@ public class ParkSpotService {
 			list.add(ps);
 		}
 		// 将list中的数据添加到表中
-		System.out.println(list);
 		parkSpotMapper.insertSpotByBatch(list);
 	}
 	public ParkSpot getPSById(String parkSpotId) {
 		ParkSpot ps = parkSpotMapper.getParkSpotById(parkSpotId);
 		return ps;
+	}
+	public void updatePSById(ParkSpot parkSpot) {
+		parkSpotMapper.updateParkSpotById(parkSpot);
+	}
+	public void deletePSById(String parkSpotId) {
+		parkSpotMapper.deleteParkSpotById(parkSpotId);
 	}
 
 	 

@@ -2,6 +2,7 @@ package park.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
 import park.pojo.ParkSpot;
@@ -32,5 +33,10 @@ public interface ParkSpotMapper {
 	void insertSpotByBatch(List<ParkSpot> list);
 	@Select("select * from PARK_SPOT where park_spot_id = #{0}")
 	ParkSpot getParkSpotById(String parkSpotId);
+
+	void updateParkSpotById(ParkSpot parkSpot);
+
+	@Delete("delete from PARK_SPOT where park_spot_id = #{0}")
+	void deleteParkSpotById(String parkSpotId);
 	
 }

@@ -53,7 +53,6 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
 //				}
 //			}
 			if (hasPermission){
-				System.out.println("拥有该访问权限");
 				return true;
 			}else {
 				UnauthorizedException ex = new UnauthorizedException("当前用户没有访问路径 " + requestURI + " 的权限");

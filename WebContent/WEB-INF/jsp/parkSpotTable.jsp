@@ -82,7 +82,7 @@
 				</div>
 				<div class="modal-body">
 					<form id="addParkSpotForm" role="form">
-					<input type="hidden" name="parkId" value="${park.parkId}"/>
+					<input type="hidden" name="parkId"  id="inputParkId" value=""/>
 						<div class="form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">车位地点</span> 
@@ -127,9 +127,10 @@
 				</div>
 				<div class="modal-body">
 					<form id="saveSpotForm" role="form">
+				<input type="hidden" name="parkSpotId"  id="inputParkSpotId"  value=""/>
 							<div class="form-group">
-								<select class="form-control " name="parkSpotType"
-									id="inputSpotType">
+								<select class="form-control " name="spotType"
+									id="inputParkSpotType">
 									<option value="">--车位类型--</option>
 									<c:forEach items="${parkSpotTypes}" var="item">
 										<option value="${item.dictItemName}">${item.dictItemName}</option>
@@ -148,7 +149,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button"  onclick="saveParkSpot()"
+					<button type="button"  onclick="saveParkSpot()"data-dismiss="modal"
 						class="btn btn-primary">保存</button>
 				</div>
 			</div>
@@ -273,7 +274,7 @@
 		<!-- 添加模态框 完成按钮实现-->
 		function addParkSpot(){
 			<!-- 验证合法性 -->
-			if($("#inputSpotPlace").val()=="" || $("#inputSpotType").val()=="" || "${park.parkId}"==""){
+			if($("#inputSpotPlace").val()=="" || $("#inputType").val()=="" || "${park.parkId}"==""){
 				return;
 			}
 			if($("#inputSpotNum").attr("max")=="" || $("#inputSpotNum").attr("max")==undefined || $("#inputSpotNum").attr("max")==null){
@@ -281,9 +282,6 @@
 			}
 			<!-- 若车位数没有填写，默认按最大值提交 -->
 			var spotAddNum;
-			alert($("#inputSpotNum").val());
-			alert($("#inputSpotNum").attr("max"));
-			alert($("#inputSpotNum").val()>$("#inputSpotNum").attr("max"));
 			if($("#inputSpotNum").val()=="" || parseInt($("#inputSpotNum").val())>parseInt($("#inputSpotNum").attr("max"))){
 				spotAddNum = $("#inputSpotNum").attr("max");
 			}else{
@@ -293,8 +291,9 @@
 				"parkId":"${park.parkId}",
 				"spotPlace":$("#inputSpotPlace").val(),
 				"spotAddNum":spotAddNum,
-				"spotType":$("#inputSpotType").val()
+				"spotType":$("#inputType").val()
 			};
+			
 			$.post("${pageContext.request.contextPath}/addParkSpot",
 				param,				
 				function(data){
@@ -308,7 +307,7 @@
 		 <!-- 删除车位信息 删除按钮-->
 		 function delParkSpot(parkSpotId){
 			 $.ajax({
-					url : "${pageContext.request.contextPath}/delParkSpot?parkId="+parkSpotId,
+					url : "${pageContext.request.contextPath}/delParkSpot?parkSpotId="+parkSpotId,
 					type : "POST",
 					success : function(result) {
 						reloadTable();
@@ -320,9 +319,8 @@
 				$.ajax({
 					url : "${pageContext.request.contextPath}/updateParkSpot",
 					type : "POST",
-					data : $("#userSaveForm").serialize(),
+					data : $("#saveSpotForm").serialize(),
 					success : function(data) {
-						$("#AddModel").modal('hide');
 						reloadTable();
 					}
 				});
@@ -342,8 +340,8 @@
 						$("[name='state'][value='"+data.state+"']").prop("checked",true);
 						$("#inputChargeType").val(data.chargeType); */
 						//$("#inputChargeType").find("option[text='"+data.chargeType+"']").prop("selected",true);
-						alert(data.spotType);
-						$("#inputSpotType").val(data.spotType);
+						$("#inputParkSpotId").val(data.parkSpotId);
+						$("#inputParkSpotType").val(data.spotType);
 						$("[name='state'][value='"+data.state+"']").prop("checked",true);
 					}
 				});

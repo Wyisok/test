@@ -72,11 +72,43 @@ public class ParkSpotController {
 		parkSpotService.setParkSpotNum(parkId,spotPlace,  spotAddNum, spotType);
 		return "ok";
 	}
-	
+	/**
+	 * 根据车位id编号获取车位
+	 * 用于编辑
+	 * @author whp
+	 * @param parkSpotId
+	 * @return
+	 */
 	@RequestMapping("/getParkSpot")
 	@ResponseBody
 	public ParkSpot getPS(String parkSpotId) {
 		ParkSpot  ps = parkSpotService.getPSById(parkSpotId);
 		return ps;
+	}
+	/**
+	 * 车位更新操作
+	 * @author whp
+	 * @param parkSpot
+	 * @return
+	 */
+	@RequestMapping("/updateParkSpot")
+	@ResponseBody
+	public String updateParkSpot(ParkSpot parkSpot) {
+		System.out.println(parkSpot);
+		parkSpotService.updatePSById(parkSpot);
+		return "ok";
+	}
+	/**
+	 * 车位删除操作
+	 * @author whp
+	 * @param parkSpotId
+	 * @return
+	 */
+	@RequestMapping("/delParkSpot")
+	@ResponseBody
+	public String delParkSpot(String parkSpotId) {
+		System.out.println(parkSpotId);
+		parkSpotService.deletePSById(parkSpotId);
+		return "ok";
 	}
 }
