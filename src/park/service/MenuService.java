@@ -23,14 +23,12 @@ public class MenuService {
 		Set<String> result = new HashSet<>();
 		List<Menu> list= menuMapper.selectAllByUserName(username);
 		for(Menu m:list){
-			result.add(m.getMenuName());
+			result.add(m.getMenuUrl());
 		}
 		return result;
 		
 		
 	}
-	
-	
 	
 	public boolean needInterceptor(String requestURI) {
 		List<Menu> ps = list();

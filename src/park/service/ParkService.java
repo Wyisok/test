@@ -103,12 +103,17 @@ public class ParkService {
 		Park park = null;
 		List<UserRole> userRoles = userRoleMapper.selectByUserId(userId);
 		String identityId = null;
+		System.out.println(userRoles);
 		for(UserRole ur : userRoles) {
-			identityId = ur.getIdentityId();
+			 String parkId = ur.getIdentityId().trim();
+			 //------------------------------------------------这里查出的是空字符串，但是不为null也不为“”，只能用length()判定
+			 if(parkId != null && parkId != "" && parkId.length()!=0) {//--------------只有停车场用户有identityId
+				 identityId = parkId;
+				 System.out.println("*identityId*"+identityId);
+				 break;
+			 }
 		}
-		if(identityId!=null) {
-			park = parkMapper.getParkById(identityId);
-		}
+		park = parkMapper.getParkById(identityId);
 		return park;
 	}
 	/**

@@ -83,7 +83,7 @@ public class UserController {
 	}
 
 	/**
-	 * 用户登录
+	 * 停车场用户登录
 	 * 
 	 * @param user
 	 * @param httpSession
@@ -93,12 +93,21 @@ public class UserController {
 	@RequestMapping("/parkUserLogin")
 	public String login(Model model,User user){
 		Subject subject = SecurityUtils.getSubject();
-		System.out.println(user.getUsername());
-		System.out.println(user.getPassword());
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
 		try {
 			subject.login(token);
+			user = (User)subject.getPrincipal();
 			Session session = subject.getSession();
+			boolean isParkUser = subject.hasRole("停车场用户");
+			if(isParkUser) {
+				//获取到停车场的信息，然后加入session
+				Park park = parkService.getParkByUserId(user.getUserId());
+				if(park!=null) {
+					session.setAttribute("park", park);
+				}else {
+					return "redirect:login";
+				}
+			}
 			session.setAttribute("subject", subject);
 			return "redirect:index";
 

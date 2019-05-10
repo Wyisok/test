@@ -31,5 +31,8 @@ public String getIdentityId() {
 public void setIdentityId(String identityId) {
 	this.identityId = identityId;
 }
-
+@Override
+public String toString() {
+	return "UserRole [id=" + id + ", userId=" + userId + ", roleId=" + roleId + ", identityId=" + identityId + "]";
+}
 }

@@ -38,24 +38,25 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
 		if (!needInterceptor) {
 			return true;
 		} else {
-			boolean hasPermission = false;
-			String userName = subject.getPrincipal().toString();
-			Set<String> permissionUrls = menuService.listPermissionURLs(userName);
-			for (String url : permissionUrls) {
-				// 这就表示当前用户有这个权限
-				if (url.equals(requestURI)) {
-					System.out.println("用户拥有该访问路径");
-					hasPermission = true;
-					break;
-				}
-			}
-
+			boolean hasPermission =subject.isPermitted(requestURI);
+			
+//			System.out.println(subject.isPermitted(requestURI));
+//			String userName = subject.getPrincipal().toString();
+			
+//			Set<String> permissionUrls = menuService.listPermissionURLs(userName);
+//			for (String url : permissionUrls) {
+//				// 这就表示当前用户有这个权限
+//				if (url.equals(requestURI)) {
+//					System.out.println("用户拥有该访问路径");
+//					hasPermission = true;
+//					break;
+//				}
+//			}
 			if (hasPermission){
 				System.out.println("拥有该访问权限");
 				return true;
-		}else {
+			}else {
 				UnauthorizedException ex = new UnauthorizedException("当前用户没有访问路径 " + requestURI + " 的权限");
-
 				subject.getSession().setAttribute("ex", ex);
 
 				WebUtils.issueRedirect(request, response, "/unauthorized");
