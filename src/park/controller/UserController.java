@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.context.RequestScoped;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -116,53 +117,6 @@ public class UserController {
 			return "login";
 		}
 	}
-	/*public ModelAndView login(User user, HttpServletResponse response, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		User user2 = userService.login(user);
-		
-		if (user2 != null) {
-			//获取当前用户的角色信息
-			List<Role> roles = roleService.getRolesByUserId(user2.getUserId());
-			for(Role role : roles) {
-				if("停车场用户".equalsIgnoreCase(role.getRoleName())) {
-					*//** 获取到当前用户所在的停车场 *//*
-					Park park = parkService.getParkByUserId(user2.getUserId());
-					session.setAttribute("park", park);
-				}
-				if("普通用户".equalsIgnoreCase(role.getRoleName())) {
-					mv.addObject("msg", "用户名或密码错误");
-					mv.setViewName("login");
-				}
-			}
-			
-			System.out.println("登录ok");
-			session.setAttribute("user", user2);
-			
-			Cookie c = new Cookie("username", URLEncoder.encode(user.getUsername(), "UTF-8"));
-			c.setMaxAge(Integer.MAX_VALUE);
-			response.addCookie(c);
-			mv.setViewName("redirect:index");
-		} else {
-			mv.addObject("msg", "用户名或密码错误");
-			mv.setViewName("login");
-		}
-		return mv;
-	}*/
-
-	/**
-	 * 用户注册
-	 */
-//	@RequestMapping("/registerUser")
-//	@ResponseBody
-//	public ModelAndView register(User user) {
-//		ModelAndView mv = new ModelAndView();
-//		userService.register(user);
-//		mv.addObject("msg", "注册成功");
-//		mv.setViewName("login");
-//		return mv;
-//	}
-	
-	
 	
 	/**
 	 * 更新用户
@@ -185,14 +139,6 @@ public class UserController {
 		return "ok2";
 	}
 
-	/*
-	 * public ModelAndView getAll(@RequestParam("id")Integer id){ ModelAndView
-	 * mv= new ModelAndView(); Page page=userService.getAllUsers(id);
-	 * mv.addObject("page",page); mv.setViewName("userType/userList"); return
-	 * mv; }
-	 */
-	
-	
 	
 	/**
 	 * app ajax  普通用户登录
@@ -203,8 +149,16 @@ public class UserController {
 	@RequestMapping("/userLogin")
 	@ResponseBody
 	public User appLogin(User user1) {
-		User user = userService.login(user1);
-
+		Subject subject = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken(user1.getUsername(), user1.getPassword());
+		User user = null;
+		try {
+			subject.login(token);
+			user = (User)subject.getPrincipal();
+			System.out.println(user);
+		} catch (AuthenticationException e) {
+			return null;
+		}
 		return user;
 	}
 	/**
@@ -224,6 +178,21 @@ public class UserController {
 			return "false";
 		}
 	}
+	
+	@RequestMapping("/saveClientId")
+	@ResponseBody
+	public String saveCid(String clientId,String userId) {
+		System.out.println(clientId);
+		System.out.println(userId);
+		try {
+			userService.bindCid2Uid(clientId,userId);
+			return "true";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "false";
+		}
+	}
+	
 	/**
 	 * app ajax 普通用户更新
 	 * @author whp

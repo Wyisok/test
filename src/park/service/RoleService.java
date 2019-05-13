@@ -36,6 +36,10 @@ public class RoleService {
 	public Set<String> selectAllByUserName(String username){
 		Set<String> result =new HashSet<>();
 		List<Role> list=roleMapper.selectAllByUserName(username);
+		if(list.contains(null)) {
+			return null;
+		}
+		System.out.println(list);
 		for(Role role:list){
 			result.add(role.getRoleName());
 		}

@@ -35,8 +35,10 @@
         <property name="filterChainDefinitions">
             <value>
                 <!-- anon表示此地址不需要任何权限即可访问 -->
-                /unauthorized=anon
+               /unauthorized=anon
                /parkUserLogin=anon
+               /userLogin=anon
+               /userReg=anon
                /login=anon
                 /register=anon
                 /static/**=anon

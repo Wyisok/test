@@ -17,6 +17,8 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
+	<context:property-placeholder location="classpath:getui.properties" ignore-unresolvable="true"  />
+
 	<!-- spring 的配置文件，这里主要配置和业务逻辑有关的 -->
 	<!-- 数据源，事务控制，XXX -->
 	<context:property-placeholder

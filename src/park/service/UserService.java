@@ -92,5 +92,21 @@ public class UserService {
 		user.setUserId(a);
 		userMapper.add(user);
 	}
+	
+	/**
+	 * 将客户端id绑定到 用户对象中
+	 * 用于定向发送消息
+	 * @author whp
+	 * @param clientId
+	 * @param userId
+	 */
+	public void bindCid2Uid(String clientId, String userId) {
+		//1. 获取用户
+		User user = userMapper.selectById(userId);
+		//2. 设置
+		user.setClientId(clientId);
+		//3.更新
+		userMapper.update(user);
+	}
 
 }

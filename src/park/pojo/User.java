@@ -13,6 +13,7 @@ private String email;
 private double balance;
 private int state=0;
 private Date createTime;
+private String clientId;
 public String getUserId() {
 	return userId;
 }
@@ -80,5 +81,11 @@ public String toString() {
 	return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", name=" + name + ", sex="
 			+ sex + ", telephone=" + telephone + ", email=" + email + ", balance=" + balance + ", state=" + state
 			+ ", createTime=" + createTime + "]";
+}
+public String getClientId() {
+	return clientId;
+}
+public void setClientId(String clientId) {
+	this.clientId = clientId;
 }
 }

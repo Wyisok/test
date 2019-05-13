@@ -22,6 +22,9 @@ public class MenuService {
 	public Set<String> selectAllByUserName(String username){
 		Set<String> result = new HashSet<>();
 		List<Menu> list= menuMapper.selectAllByUserName(username);
+		if(list.contains(null)) {
+			return null;
+		}
 		for(Menu m:list){
 			result.add(m.getMenuUrl());
 		}
