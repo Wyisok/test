@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import park.pojo.BaseDict;
-import park.pojo.User;
 import park.service.BaseDictService;
 
 @Controller

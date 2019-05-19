@@ -39,4 +39,7 @@ public interface ParkSpotMapper {
 	@Delete("delete from PARK_SPOT where park_spot_id = #{0}")
 	void deleteParkSpotById(String parkSpotId);
 	
+	@Select("select * from PARK_SPOT where park_id = #{0} and spot_state = 0")
+	List<ParkSpot> getParkSpotByParkId(String parkId);
+	
 }

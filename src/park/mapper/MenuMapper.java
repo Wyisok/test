@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Select;
 
 import park.pojo.Menu;
-import park.pojo.User;
 
 public interface MenuMapper {
 @Select("select * from MENU") 

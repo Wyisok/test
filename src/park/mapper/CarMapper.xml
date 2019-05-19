@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="park.mapper.CarMapper">
+	<resultMap id="car" type="car">
+		<id column="car_id" jdbcType="VARCHAR" property="carId"></id>
+		<result column="user_id" jdbcType="VARCHAR" property="userId"></result>
+	</resultMap>
+	
+	<select id="getCarIdByUserId" parameterType="string" resultType="car">
+	 select * from TB_CAR where user_id = #{0}
+	</select>
+	
+	<insert id="insertCarIdByUserId" parameterType="java.util.Set">
+		insert into TB_CAR (car_id,user_id)
+		values
+		<foreach collection="set" item="item" separator=",">
+			(#{item.carId},
+			#{item.userId})
+		</foreach>
+	</insert>
+	
+	<delete id="deleteCarIdByUserId" parameterType="string">
+	delete from TB_CAR where user_id = #{0}
+	</delete>
+
+</mapper>

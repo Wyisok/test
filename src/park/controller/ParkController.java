@@ -1,21 +1,15 @@
 package park.controller;
 
 import java.util.List;
-import java.util.Map;
-
-import org.apache.catalina.tribes.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import park.pojo.BaseDict;
 import park.pojo.Park;
-import park.pojo.ParkQueryVo;
 import park.pojo.Role;
 import park.pojo.User;
 import park.pojo.UserRole;
@@ -113,7 +107,12 @@ public class ParkController {
 		parkService.delParkById(parkId);
 		return "ok";
 	}
-	
+	/**
+	 * 停车场信息更新
+	 * @author whp
+	 * @param park
+	 * @return
+	 */
 	@RequestMapping("/updatePark")
 	@ResponseBody
 	public String updatePark(Park park) {
@@ -121,4 +120,6 @@ public class ParkController {
 		parkService.updatePark(park);
 		return "ok";
 	}
+	
+
 }

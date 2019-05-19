@@ -5,8 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-
 import park.pojo.User;
 
 public interface UserMapper {
@@ -29,6 +27,9 @@ void deleteById(String user_id);
 
 @Select ("select * from USER where username=#{username} and password=#{password}")
 User login(User user);
+
+@Select("select * from USER u left join TB_CAR t on u.user_id = t.user_id where t.car_id = #{0}")
+User selectByCarId(String carId);
 
 
 

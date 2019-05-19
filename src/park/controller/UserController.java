@@ -1,18 +1,7 @@
 package park.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.enterprise.context.RequestScoped;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -20,41 +9,37 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
+import park.pojo.Car;
 import park.pojo.Park;
-import park.pojo.Role;
 import park.pojo.User;
+import park.service.CarService;
 import park.service.ParkService;
 import park.service.RoleService;
 import park.service.UserRoleService;
 import park.service.UserService;
 import park.utils.JsonDate2String;
-import park.utils.JsonDateValueProcessor;
 import park.utils.Page4DataTable;
+import park.utils.UUIDUtils;
 
 @Controller
 public class UserController {
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
-	UserRoleService userRoleService;
+	private UserRoleService userRoleService;
 	@Autowired
-	RoleService roleService;
+	private RoleService roleService;
 	@Autowired
-	ParkService parkService;
+	private ParkService parkService;
+	@Autowired
+	private CarService carService;
 	/**
 	 * 获取用户分页信息
 	 * 
@@ -169,9 +154,14 @@ public class UserController {
 	 */
 	@RequestMapping("/userReg")
 	@ResponseBody
-	public String userReg(User user) {
+	public String userReg(User user, Car car) {
 		try {
+			String userId = UUIDUtils.getUUID();
+			user.setUserId(userId);
 			userService.register(user);
+			Set<Car> cars = new HashSet<Car>();
+			cars.add(car);
+			carService.addCarIdByUserId(userId,cars);
 			return "true";
 		} catch (Exception e) {
 			e.printStackTrace();

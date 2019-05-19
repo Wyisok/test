@@ -81,15 +81,42 @@ public class ParkSpotService {
 		// 将list中的数据添加到表中
 		parkSpotMapper.insertSpotByBatch(list);
 	}
+	/**
+	 * 根据车位id，获取车位所有信息
+	 * @author whp
+	 * @param parkSpotId
+	 * @return
+	 */
 	public ParkSpot getPSById(String parkSpotId) {
 		ParkSpot ps = parkSpotMapper.getParkSpotById(parkSpotId);
 		return ps;
 	}
+	/**
+	 * 根据车位id，更新车位信息
+	 * @author whp
+	 * @param parkSpot
+	 */
 	public void updatePSById(ParkSpot parkSpot) {
 		parkSpotMapper.updateParkSpotById(parkSpot);
 	}
+	/**
+	 * 删除车位
+	 * @author whp
+	 * @param parkSpotId
+	 */
 	public void deletePSById(String parkSpotId) {
 		parkSpotMapper.deleteParkSpotById(parkSpotId);
+	}
+	/**
+	 * 获取所有的空闲的车位
+	 * 根据停车场id
+	 * @author whp
+	 * @param parkId
+	 * @return
+	 */
+	public List<ParkSpot> getFreePSByParkId(String parkId) {
+		List<ParkSpot> parkSpots = parkSpotMapper.getParkSpotByParkId(parkId);
+		return parkSpots;
 	}
 
 	 

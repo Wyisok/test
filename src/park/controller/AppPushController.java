@@ -1,13 +1,10 @@
 package park.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import park.service.AppPushService;
-import park.utils.AppPush;
 
 @Controller
 public class AppPushController {

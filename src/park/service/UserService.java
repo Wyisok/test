@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import park.mapper.UserMapper;
 import park.pojo.User;
 import park.utils.Page4DataTable;
-import park.utils.UUIDUtils;
 
 @Service
 public class UserService {
@@ -88,8 +87,6 @@ public class UserService {
 	 * 用户注册
 	 */
 	public void register(User user) {
-		String a = UUIDUtils.getUUID();
-		user.setUserId(a);
 		userMapper.add(user);
 	}
 	
@@ -107,6 +104,16 @@ public class UserService {
 		user.setClientId(clientId);
 		//3.更新
 		userMapper.update(user);
+	}
+	/**
+	 * 根据车牌号获取所属用户
+	 * @author whp
+	 * @param carId
+	 * @return
+	 */
+	public User getUserByCarId(String carId) {
+		User user = userMapper.selectByCarId(carId);
+		return user;
 	}
 
 }

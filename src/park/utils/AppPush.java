@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import com.gexin.rp.sdk.base.IPushResult;
@@ -153,7 +152,7 @@ public class AppPush {
 		template.setAppId(appId);
 		template.setAppkey(appKey);
 		template.setTransmissionContent(msg);// 设置消息内容
-		template.setTransmissionType(1); // 这个Type为int型，填写1则自动启动app
+		template.setTransmissionType(2); // 这个Type为int型，填写1则自动启动app
 		// 设置消息的参数
 		message.setData(template);
 		message.setOffline(true);
@@ -188,7 +187,7 @@ public class AppPush {
 		template.setAppId(appId);
 		template.setAppkey(appKey);
 		template.setTransmissionContent(msg);// 设置消息内容
-		template.setTransmissionType(1); // 这个Type为int型，填写1则自动启动app
+		template.setTransmissionType(2); // 这个Type为int型，填写1则自动启动app
 		AppMessage message = new AppMessage();// 设置消息的参数
 		message.setData(template);
 		message.setOffline(true);
@@ -202,9 +201,9 @@ public class AppPush {
 		System.out.println(ret.getResponse().toString());
 	}
 	
-	public static void main(String[] args) {
-		sendNotificationMessage("尊敬的客户", "欢");
-	}
+//	public static void main(String[] args) {
+//		sendNotificationMessage("尊敬的客户", "欢");
+//	}
 	
 	
 
