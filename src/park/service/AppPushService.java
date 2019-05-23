@@ -2,18 +2,26 @@ package park.service;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.sf.json.JSONObject;
+import park.exception.ParkSpotBeOccupyException;
+import park.mapper.ParkSpotMapper;
 import park.pojo.MessageBean;
 import park.pojo.Park;
 import park.pojo.ParkSpot;
+import park.pojo.ServiceInOut;
 import park.pojo.User;
 import park.utils.AppPush;
 import park.utils.JsonDate2String;
+import park.utils.UUIDUtils;
 
 @Service
 public class AppPushService {
+	@Autowired
+	private ParkSpotMapper parkSpotMapper;
+	
 	
 	/**
 	 * 向所有已经登录过的用户发送消息
@@ -32,14 +40,16 @@ public class AppPushService {
 	 * @param user
 	 * @param park
 	 * @param parkSpot
+	 * @throws ParkSpotBeOccupyException 
 	 */
-	public void sendParkSpotArrange(User user, Park park, ParkSpot parkSpot) {
+	public void sendParkSpotArrange(User user, Park park, ParkSpot parkSpot) throws ParkSpotBeOccupyException {
 		//1. 当前停车场的收费金额与用户余额比较，如果余额不够，需要发送充值消息
 		if(park.getCharge()>user.getBalance()) {
 			sendRechargeMessage(user);
 		}
+	
 		
-		
+		//3. 发送消息
 		MessageBean mb = new MessageBean();
 		mb.setDateTime(new Date());
 		mb.setTitle("欢迎来到 "+park.getParkName());
@@ -67,7 +77,7 @@ public class AppPushService {
 		JSONObject json = JSONObject.fromObject(mb, JsonDate2String.getDateStringJsonConfig("yyyy-MM-dd HH:mm:ss"));
 		String clientId = user.getClientId();
 		if(clientId==null) {
-			return;//----------执行短信通知
+			return;//----------执行短信通知--这里有点问题
 		}
 		System.out.println(json);
 		AppPush.sendDataByCid(clientId, json.toString());

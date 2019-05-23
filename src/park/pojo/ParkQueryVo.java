@@ -1,28 +1,32 @@
 package park.pojo;
 
-public class ParkQueryVo extends Park{
-	private String dictItemName;
-	private BaseDict baseDict;
-	public String getDictItemName() {
-		return dictItemName;
+/**
+ * 封装一些前台需要的信息
+ * 一次性传过去
+ * @author whp
+ * @date 2019年5月19日
+ * @version 1.0
+ */
+public class ParkQueryVo {
+	/** 停车场 */
+	private Park park;
+	/** 空闲车位数 */
+	private int freeSpotNum;
+	public Park getPark() {
+		return park;
 	}
-
-	public void setDictItemName(String dictItemName) {
-		this.dictItemName = dictItemName;
+	public void setPark(Park park) {
+		this.park = park;
+	}
+	public int getFreeSpotNum() {
+		return freeSpotNum;
+	}
+	public void setFreeSpotNum(int freeSpotNum) {
+		this.freeSpotNum = freeSpotNum;
 	}
 	@Override
 	public String toString() {
-		return "ParkQueryVo [dictItemName=" + dictItemName + ", getParkId()=" + getParkId() + ", getParkName()="
-				+ getParkName() + ", getParkSpotNum()=" + getParkSpotNum() + ", getAddress()=" + getAddress()
-				+ ", getLngLat()=" + getLngLat() + ", getCharge()=" + getCharge() + ", getChargeType()="
-				+ getChargeType() + ", getState()=" + getState() + "]";
+		return "ParkQueryVo [park=" + park + ", freeSpotNum=" + freeSpotNum + "]";
 	}
-
-	public BaseDict getBaseDict() {
-		return baseDict;
-	}
-
-	public void setBaseDict(BaseDict baseDict) {
-		this.baseDict = baseDict;
-	}
+	
 }

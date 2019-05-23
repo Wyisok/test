@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="park.mapper.UserVipMapper">
+<resultMap id="userVip" type="park.pojo.UserVip">
+<id column="user_vip_id" jdbcType="VARCHAR" property="userVipId"></id>
+<result column="park_id" jdbcType="VARCHAR" property="parkId"></result>
+<result column="user_id" jdbcType="VARCHAR" property="userId"></result>
+<result column="buy_time" jdbcType="TIMESTAMP" property="buyTime"></result>
+<result column="end_time" jdbcType="TIMESTAMP" property="endTime"></result>
+</resultMap>
+
+</mapper>

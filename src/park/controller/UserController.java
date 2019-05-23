@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.sf.json.JSONObject;
 import park.pojo.Car;
 import park.pojo.Park;
+import park.pojo.Role;
 import park.pojo.User;
+import park.pojo.UserRole;
 import park.service.CarService;
 import park.service.ParkService;
 import park.service.RoleService;
@@ -68,6 +70,23 @@ public class UserController {
 		return user;
 	}
 
+	/**
+	 * 加盟停车场
+	 * 
+	 * @param park
+	 * @param user
+	 * @param userRole
+	 * @return
+	 */
+	@RequestMapping("/registerPark")
+	public String registerPark(Park park, User user, UserRole userRole) {
+		Role role = roleService.getRoleByName("停车场用户");
+		// - TB_USER_ROLE 为当期那用户添加停车场员工角色
+		parkService.addPark(park, user, userRole, role);
+		return "redirect:login";
+	}
+	
+	
 	/**
 	 * 停车场用户登录
 	 * 

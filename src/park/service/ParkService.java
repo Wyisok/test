@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import park.exception.ParkWithoutFreeSpotException;
 import park.mapper.ParkMapper;
+import park.mapper.ParkSpotMapper;
 import park.mapper.RoleMapper;
 import park.mapper.UserMapper;
 import park.mapper.UserRoleMapper;
 import park.pojo.Park;
+import park.pojo.ParkQueryVo;
+import park.pojo.ParkSpot;
 import park.pojo.Role;
 import park.pojo.User;
 import park.pojo.UserRole;
@@ -32,6 +36,9 @@ public class ParkService {
 	private UserRoleMapper userRoleMapper;
 	@Autowired
 	private RoleMapper roleMapper;
+	@Autowired
+	private ParkSpotMapper parkSpotMapper;
+	
 	/**
 	 * 获取总停车场数
 	 * @return
@@ -124,15 +131,24 @@ public class ParkService {
 	public void delParkById(String parkId) {
 		parkMapper.deleteParkById(parkId);
 	}
+	
+	
+	
 	/**
 	 * 根据停车场id获取 停车场所有的信息
 	 * @author whp
 	 * @param parkId
 	 * @return
 	 */
-	public Park getParkQueryVoById(String parkId) {
-		
-		return parkMapper.getParkById(parkId);
+	public ParkQueryVo getParkQueryVoById(String parkId) {
+		ParkQueryVo parkQueryVo = new ParkQueryVo(); 
+		//1. 装载基本停车场信息
+		Park park = parkMapper.getParkById(parkId);
+		parkQueryVo.setPark(park);
+		//2. 装载空闲车位数量
+		int freeSpotNum = parkSpotMapper.getFreeParkSpotNum(parkId);
+		parkQueryVo.setFreeSpotNum(freeSpotNum);
+		return parkQueryVo;
 	}
 	/**
 	 * 更新传入的的停车场信息
@@ -143,6 +159,7 @@ public class ParkService {
 	public void updatePark(Park park) {
 	parkMapper.updateParkInfo(park);
 	}
+
 	
 	
 	

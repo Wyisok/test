@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="park.mapper.ServiceInOutMapper">
+<resultMap id="serviceInOut" type="park.pojo.ServiceInOut">
+<id column="service_id" jdbcType="VARCHAR" property="serviceId"></id>
+<result column="park_id" jdbcType="VARCHAR" property="parkId"></result>
+<result column="park_spot_id" jdbcType="VARCHAR" property="parkSpotId"></result>
+<result column="car_id" jdbcType="VARCHAR" property="carId"></result>
+<result column="user_id" jdbcType="VARCHAR" property="userId"></result>
+<result column="user_vip_id" jdbcType="VARCHAR" property="userVipId"></result>
+<result column="time_in" jdbcType="TIMESTAMP" property="timeIn"></result>
+<result column="time_out" jdbcType="TIMESTAMP" property="timeOut"></result>
+<result column="income" jdbcType="DOUBLE" property="income"></result>
+</resultMap>
+
+<insert id="insert" parameterType="ServiceInOut">
+insert into TB_IN_OUT
+(service_id,park_id,park_spot_id,car_id,user_id,user_vip_id)
+values
+(#{serviceId},#{parkId},#{parkSpotId},#{carId},#{userId},#{userVipId});
+</insert>
+<update id="update" parameterType="serviceInOut">
+update TB_IN_OUT
+<set>
+time_out=#{timeOut},income=#{income}
+</set>
+where service_id=#{serviceId}
+</update>
+</mapper>

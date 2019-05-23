@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import park.exception.ParkSpotNumOutOfBoundsException;
 import park.pojo.ParkSpot;
 import park.service.BaseDictService;
 import park.service.ParkSpotService;
@@ -51,7 +52,12 @@ public class ParkSpotController {
 	@RequestMapping("/getRemanentSpotNum")
 	@ResponseBody
 	public String getRSN(Model model,String parkId,String parkSpotNum) {
-		int remanentSpotNum = parkSpotService.getRemanentSpotNum(parkId,parkSpotNum);
+		int remanentSpotNum = 0;
+		try {
+			remanentSpotNum = parkSpotService.getRemanentSpotNum(parkId,parkSpotNum);
+		} catch (ParkSpotNumOutOfBoundsException e) {
+			e.printStackTrace();
+		}
 		return remanentSpotNum+"";
 	}
 	/**
@@ -92,7 +98,7 @@ public class ParkSpotController {
 	@ResponseBody
 	public String updateParkSpot(ParkSpot parkSpot) {
 		System.out.println(parkSpot);
-		parkSpotService.updatePSById(parkSpot);
+		parkSpotService.updatePS(parkSpot);
 		return "ok";
 	}
 	/**

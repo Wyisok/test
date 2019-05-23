@@ -15,8 +15,17 @@ import park.pojo.ParkSpot;
  */
 public interface ParkSpotMapper {
 	
-	@Select("select count(1) from PARK_SPOT")
-	int getParkSpotNum();
+//	@Select("select count(1) from PARK_SPOT")
+//	int getParkSpotNum();\
+	/**
+	 * 获取空闲车位数
+	 * @author whp
+	 * @param parkId
+	 * @return
+	 */
+	@Select("select count(1) from PARK_SPOT where park_id = #{0} and spot_state=0")
+	int getFreeParkSpotNum(String parkId);
+	
 	
 	@Select("select * from PARK_SPOT limit #{0},#{1}")
 	List<ParkSpot> getPageParkSpots(int getiDisplayStart, int i);
@@ -34,7 +43,7 @@ public interface ParkSpotMapper {
 	@Select("select * from PARK_SPOT where park_spot_id = #{0}")
 	ParkSpot getParkSpotById(String parkSpotId);
 
-	void updateParkSpotById(ParkSpot parkSpot);
+	void updateParkSpot(ParkSpot parkSpot);
 
 	@Delete("delete from PARK_SPOT where park_spot_id = #{0}")
 	void deleteParkSpotById(String parkSpotId);

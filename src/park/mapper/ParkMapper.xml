@@ -9,8 +9,17 @@
 		<result property="lngLat" column="lng_lat" />
 		<result property="charge" column="charge" />
 		<result property="chargeType" column="charge_type" />
+		<result property="income" column="income"/>
 		<result property="state" column="state" />
 	</resultMap>
+	
+	<insert id="insertPark" parameterType="park">
+	insert PARK 
+	(park_id,park_name,park_spot_num,address,lng_lat,charge,charge_type,income,state)
+	values
+	(#{parkId},#{parkName},#{parkSpotNum},#{address},#{lngLat},#{charge},#{chargeType},#{income},#{state})
+	</insert>
+	
 	
 	<update id="updateParkInfo" parameterType="park.pojo.Park">
 	 update PARK
@@ -25,4 +34,6 @@
 	</set>
 	where park_id=#{parkId}
 	</update>
+	
+	
 </mapper>

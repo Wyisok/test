@@ -28,9 +28,13 @@ public class Park {
 	 */
 	private double charge;
 	/**
-	 * 免费、一次性收费、按期收费、标准收费、按次收费
+	 * 免费、一次性收费、标准收费、按次收费
 	 */
 	private String chargeType;
+	/**
+	 * 停车场总收入
+	 */
+	private double income;
 	/**
 	 * 是否启用
 	 */
@@ -38,12 +42,6 @@ public class Park {
 
 	
 	
-	@Override
-	public String toString() {
-		return "Park [parkId=" + parkId + ", parkName=" + parkName + ", parkSpotNum=" + parkSpotNum + ", address="
-				+ address + ", lngLat=" + lngLat + ", charge=" + charge + ", chargeType=" + chargeType + ", state="
-				+ state + "]";
-	}
 
 	public String getParkId() {
 		return parkId;
@@ -108,4 +106,20 @@ public class Park {
 	public void setState(int state) {
 		this.state = state;
 	}
+
+	public double getIncome() {
+		return income;
+	}
+
+	public void setIncome(double income) {
+		this.income = income;
+	}
+
+	@Override
+	public String toString() {
+		return "Park [parkId=" + parkId + ", parkName=" + parkName + ", parkSpotNum=" + parkSpotNum + ", address="
+				+ address + ", lngLat=" + lngLat + ", charge=" + charge + ", chargeType=" + chargeType + ", income="
+				+ income + ", state=" + state + "]";
+	}
+	
 }

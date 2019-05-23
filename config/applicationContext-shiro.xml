@@ -36,15 +36,21 @@
             <value>
                 <!-- anon表示此地址不需要任何权限即可访问 -->
                /unauthorized=anon
+               
                /parkUserLogin=anon
+               /registerPark=anon
+               
                /userLogin=anon
                /userReg=anon
+               
                /login=anon
-                /register=anon
+               /register=anon
+                
                 /static/**=anon
                 /getParks=anon
                 /getCarIds=anon
                 /enterPark=anon
+                /exitPark=anon
                 <!-- 只对业务功能进行权限管理，权限配置本身不需要没有做权限要求，这样做是为了不让初学者混淆 -->
                 /doLogout=logout
                 <!--所有的请求(除去配置的静态资源请求或请求地址为anon的请求)都要通过过滤器url -->
