@@ -95,6 +95,7 @@ public class UserController {
 				}
 			}
 			session.setAttribute("subject", subject);
+			session.setAttribute("username",user.getUsername() );
 			return "redirect:index";
 
 		} catch (AuthenticationException e) {

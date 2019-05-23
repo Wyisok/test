@@ -6,6 +6,9 @@ import java.util.Date;
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.JsonValueProcessor;
 
+
+
+
 public class JsonDateValueProcessor implements JsonValueProcessor {
 	private  String datePattern = "yyyy-MM-dd";//默认将Date转成的我们需要的样式
 	public String getDatePattern() {

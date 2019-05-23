@@ -5,6 +5,7 @@ import java.util.Date;
 
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.JsonValueProcessor;
+
 /**
  * 将传给前台的json中的date属性的值转为字符串类型
  * @author whp
@@ -53,7 +54,6 @@ public class JsonDate2String {
 			super();
 			this.datePattern = datePattern;
 		}
-		@Override
 		public Object processArrayValue(Object value, JsonConfig jsonConfig) {
 			try {							   //所以这个方法的实现和下面那个一毛一样 你可以合并
 				if(value instanceof Date){			//我之所以没合并是为了做实验 验证强调的点
@@ -67,7 +67,6 @@ public class JsonDate2String {
 			}
 		}
 
-		@Override
 		public Object processObjectValue(String key, Object value, JsonConfig jsonConfig) {
 			try {
 				if(value instanceof Date){

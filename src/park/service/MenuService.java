@@ -30,8 +30,20 @@ public class MenuService {
 		}
 		return result;
 		
-		
 	}
+
+/**
+	 * 显示菜单
+	 * @param requestURI
+	 * @return
+	 */
+	public List<Menu> selectByUserName(String username){
+	
+		List<Menu> list= menuMapper.selectAllByUserName(username);
+		
+		return list;
+	}
+	
 	
 	public boolean needInterceptor(String requestURI) {
 		List<Menu> ps = list();

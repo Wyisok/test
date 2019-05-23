@@ -63,6 +63,7 @@ public class ParkController {
 	@RequestMapping("/registerPark")
 	public String registerPark(Park park, User user, UserRole userRole) {
 		Role role = roleService.getRoleByName("停车场用户");
+		System.out.println(park);
 		// - TB_USER_ROLE 为当期那用户添加停车场员工角色
 		parkService.addPark(park, user, userRole, role);
 		return "redirect:login";
