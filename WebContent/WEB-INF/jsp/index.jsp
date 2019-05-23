@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +65,7 @@
 			</a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">用户名：${subject.principal}</a> 
+					<a class="dropdown-item" href="#">用户名：${username}</a> 
 					<a class="dropdown-item" href="#">个人信息</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href=""  data-toggle="modal"
@@ -81,18 +82,23 @@
 				href="${pageContext.request.contextPath}"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>首页</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('parkSpot')>
-					<i class="fas fa-fw fa-chart-area"></i> <span>车位管理</span>
+			
+			<c:forEach  items="${menu}" var="m">
+			 <c:choose>
+			<c:when test="${m.menuUrl!= '/index' }">
+			
+			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('${m.menuUrl }')>
+					<i class="fas fa-fw fa-chart-area"></i> <span>${m.menuName }</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('park')>
-					<i class="fas fa-fw fa-chart-area"></i> <span>停车场管理</span>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('usertable'); />
-				<i class="fas fa-fw fa-table"></i> <span>用户管理</span></a></li>
+			
+			</c:when>
+			</c:choose>
+			</c:forEach>
+
 		</ul>
 <script type="text/javascript">
 	function openAjaxURL(url){
-		var url = "${pageContext.request.contextPath}/"+url;
+		var url = "${pageContext.request.contextPath}"+url;
 		$('#content-wrapper').load(url);
 	}
 </script>

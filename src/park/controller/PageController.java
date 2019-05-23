@@ -37,16 +37,18 @@ public class PageController {
 		if(user == null) {
 			return "login";
 		}
-		return "index";
+		return "redirect:/index";
 	}
 	@RequestMapping("index")
 	public String getIndex1(HttpSession session) {
 		Subject user = (Subject) session.getAttribute("subject");
+		String username=(String) session.getAttribute("username");
 		System.out.println("session中的user"+user);
 		if(user == null) {
 			return "login";
 		}
-		return "index";
+		return "redirect:/showMenu?username="+username;
+		
 	}
 	/**
 	 * 转发到userTable.jsp页面
