@@ -11,7 +11,7 @@ import park.mapper.ParkSpotMapper;
 import park.pojo.MessageBean;
 import park.pojo.Park;
 import park.pojo.ParkSpot;
-import park.pojo.ServiceInOut;
+import park.pojo.ServiceInOutPojo;
 import park.pojo.User;
 import park.utils.AppPush;
 import park.utils.JsonDate2String;

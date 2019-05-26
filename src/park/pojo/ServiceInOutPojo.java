@@ -8,7 +8,7 @@ package park.pojo;
 
 import java.util.Date;
 
-public class ServiceInOut {
+public class ServiceInOutPojo {
 	/** uuid*/
 	private String serviceId;
 	private String parkId;

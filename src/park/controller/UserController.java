@@ -1,5 +1,6 @@
 package park.controller;
 
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,10 +54,8 @@ public class UserController {
 	@ResponseBody
 	public JSONObject getAll(Page4DataTable<User> allData) {
 		userService.getAllUser(allData);
-		System.out.println(allData);
 		// --最后得封装成jsonobject对象，才能显示出来
 		JSONObject json = JSONObject.fromObject(allData, JsonDate2String.getDateStringJsonConfig());
-		System.out.println(json);
 		return json;
 	}
 
@@ -72,7 +71,7 @@ public class UserController {
 
 	/**
 	 * 加盟停车场
-	 * 
+	 * 停车场用户注册
 	 * @param park
 	 * @param user
 	 * @param userRole
@@ -188,7 +187,13 @@ public class UserController {
 			return "false";
 		}
 	}
-	
+	/**
+	 * app 用户保存客户端id
+	 * @author whp
+	 * @param clientId
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping("/saveClientId")
 	@ResponseBody
 	public String saveCid(String clientId,String userId) {
@@ -213,7 +218,6 @@ public class UserController {
 	@ResponseBody
 	public String userUpdate(@RequestBody User user) {
 		try {
-			System.out.println(user);
 			userService.update(user);
 			return "true";
 		} catch (Exception e) {
@@ -221,4 +225,30 @@ public class UserController {
 			return "false";
 		}
 	}
+	/**
+	 * 获取用户余额
+	 * @author whp
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping("/getBalance")
+	@ResponseBody
+	public String getBalance(String userId) {
+		double balance1 = userService.getBalance(userId);
+		DecimalFormat df = new DecimalFormat(",###.##");//----截取两个小数，
+		String balance = df.format(balance1);
+		return balance;
+	}
+	
+	@RequestMapping("/recharge")
+	@ResponseBody
+	public String recharge(String userId,String charge) {
+		User user = userService.getById(userId);
+		double balance = user.getBalance();
+		balance += Double.parseDouble(charge);
+		user.setBalance(balance);
+		userService.update(user);
+		return "ok";
+	}
+	
 }

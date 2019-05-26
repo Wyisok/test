@@ -81,7 +81,6 @@ public class PageController {
 	 */
 	@RequestMapping("/park")
 	public String getParkTable(Model model) {
-		System.out.println("/park执行");
 		loadParkChargeTypes(model);
 		return "parkTable";
 	}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="park.mapper.ServiceInOutMapper">
-<resultMap id="serviceInOut" type="park.pojo.ServiceInOut">
+<resultMap id="serviceInOutPojo" type="park.pojo.ServiceInOutPojo">
 <id column="service_id" jdbcType="VARCHAR" property="serviceId"></id>
 <result column="park_id" jdbcType="VARCHAR" property="parkId"></result>
 <result column="park_spot_id" jdbcType="VARCHAR" property="parkSpotId"></result>
@@ -13,13 +13,13 @@
 <result column="income" jdbcType="DOUBLE" property="income"></result>
 </resultMap>
 
-<insert id="insert" parameterType="ServiceInOut">
+<insert id="insert" parameterType="ServiceInOutPojo">
 insert into TB_IN_OUT
 (service_id,park_id,park_spot_id,car_id,user_id,user_vip_id)
 values
 (#{serviceId},#{parkId},#{parkSpotId},#{carId},#{userId},#{userVipId});
 </insert>
-<update id="update" parameterType="serviceInOut">
+<update id="update" parameterType="serviceInOutPojo">
 update TB_IN_OUT
 <set>
 time_out=#{timeOut},income=#{income}

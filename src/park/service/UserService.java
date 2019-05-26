@@ -53,9 +53,9 @@ public class UserService {
 	 * @param userid
 	 * @return
 	 */
-	public User getById(String userid) {
+	public User getById(String userId) {
 
-		return userMapper.selectById(userid);
+		return userMapper.selectById(userId);
 	}
 
 	public void getAllUser(Page4DataTable<User> allData) {
@@ -114,6 +114,16 @@ public class UserService {
 	public User getUserByCarId(String carId) {
 		User user = userMapper.selectByCarId(carId);
 		return user;
+	}
+	/**
+	 * 获取用户余额
+	 * @author whp
+	 * @param userId
+	 * @return
+	 */
+	public double getBalance(String userId) {
+		User user = getById(userId);
+		return user.getBalance();
 	}
 
 }

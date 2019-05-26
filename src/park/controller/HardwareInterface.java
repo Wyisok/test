@@ -15,10 +15,10 @@ import park.exception.ParkWithoutFreeSpotException;
 import park.exception.UserNoRegisterException;
 import park.pojo.Park;
 import park.pojo.ParkSpot;
-import park.pojo.ServiceInOut;
+import park.pojo.ServiceInOutPojo;
 import park.pojo.User;
 import park.service.AppPushService;
-import park.service.InOutService;
+import park.service.ServiceInOut;
 import park.service.ParkService;
 import park.service.ParkSpotService;
 import park.service.UserService;
@@ -36,7 +36,7 @@ public class HardwareInterface {
 	@Autowired
 	private AppPushService appPushService;
 	@Autowired
-	private InOutService inOutService;
+	private ServiceInOut inOutService;
 	/**
 	 * 进入停车场业务
 	 * @author whp
@@ -44,8 +44,8 @@ public class HardwareInterface {
 	 * @param carId
 	 * @return
 	 */
+	@RequestMapping(value="/enterPark",produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	@RequestMapping("/enterPark")
 	public String enterPark(String parkId,String carId) {
 		System.out.println(parkId + "*" + carId);
 		//1. 验证 车牌号是否被注册 取出用户对象
@@ -56,15 +56,17 @@ public class HardwareInterface {
 			try {
 				throw new UserNoRegisterException("用户尚未注册");
 			} catch (UserNoRegisterException e) {
+				System.out.println(e.getMessage());
 				return e.getMessage();
 			}
 		}
 		//2. 验证车辆
-		ServiceInOut sio = inOutService.getServiceInOutByCarId(carId);
+		ServiceInOutPojo sio = inOutService.getNowServiceInOutByCarId(carId);
 		if(sio!=null) {
 			try {
 				throw new CarInParkException("当前车辆尚未退出停车场");
 			} catch (CarInParkException e) {
+				System.out.println(e.getMessage());
 				return e.getMessage();
 			}
 		}
@@ -75,6 +77,7 @@ public class HardwareInterface {
 		try {
 			parkSpots = parkSpotService.getFreeParkSpots(park);
 		} catch (ParkWithoutFreeSpotException e) {
+			System.out.println(e.getMessage());
 			return e.getMessage();
 		}
 		
@@ -83,6 +86,7 @@ public class HardwareInterface {
 		try {
 			parkSpotService.enterParkUpdateSpot(parkSpot,carId);
 		} catch (ParkSpotBeOccupyException e) {
+			System.out.println(e.getMessage());
 			return e.getMessage();
 		}
 		
@@ -91,6 +95,7 @@ public class HardwareInterface {
 		try {
 			appPushService.sendParkSpotArrange(user,park,parkSpot);
 		} catch (ParkSpotBeOccupyException e) {
+			System.out.println(e.getMessage());
 			return e.getMessage();
 		}
 		//4 业务流水表--进入停车场业务信息

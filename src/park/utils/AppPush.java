@@ -17,7 +17,6 @@ import com.gexin.rp.sdk.template.TransmissionTemplate;
 import com.gexin.rp.sdk.template.style.Style0;
 
 @Component
-
 public class AppPush {
 	private static String appId;
 	private static String appKey;
@@ -200,10 +199,6 @@ public class AppPush {
 		IPushResult ret = push.pushMessageToApp(message);// 发送
 		System.out.println(ret.getResponse().toString());
 	}
-	
-//	public static void main(String[] args) {
-//		sendNotificationMessage("尊敬的客户", "欢");
-//	}
 	
 	
 

@@ -16,7 +16,7 @@ import park.mapper.UserVipMapper;
 import park.mapper.VipMapper;
 import park.pojo.Park;
 import park.pojo.ParkSpot;
-import park.pojo.ServiceInOut;
+import park.pojo.ServiceInOutPojo;
 import park.pojo.User;
 import park.pojo.UserVip;
 import park.pojo.Vip;
@@ -31,7 +31,7 @@ import park.utils.UUIDUtils;
  * @version 1.0
  */
 @Service
-public class InOutService {
+public class ServiceInOut {
 	@Autowired
 	private AppPushService appPushService;
 	@Autowired
@@ -58,7 +58,7 @@ public class InOutService {
 	 * @param user
 	 */
 	public void inParkRecord(String carId, ParkSpot parkSpot, User user) {
-		ServiceInOut sio = new ServiceInOut();
+		ServiceInOutPojo sio = new ServiceInOutPojo();
 		sio.setServiceId(UUIDUtils.getUUID());
 		sio.setParkId(parkSpot.getParkId());
 		sio.setParkSpotId(parkSpot.getParkSpotId());
@@ -82,7 +82,7 @@ public class InOutService {
 	 */
 	public void outParkRecord(String carId) throws BalanceNotEnoughException, CarNotInParkException {
 		//1. 根据carId和timeout为null即可获取当前车辆尚未完成的订单
-		ServiceInOut sio = getServiceInOutByCarId(carId);
+		ServiceInOutPojo sio = getNowServiceInOutByCarId(carId);
 		//--停车场没有当前车辆，则退出
 		if(sio==null) {
 			throw new CarNotInParkException("当前车辆不在当前停车场");
@@ -137,7 +137,7 @@ public class InOutService {
 	 * @param sio 
 	 * @return
 	 */
-	private double getCount(ServiceInOut sio) {
+	private double getCount(ServiceInOutPojo sio) {
 		//2.1 计算停车费用--没有优惠
 		//2.1.1 获取到停车场的收费模式，以及计费
 		Park park = parkMapper.getParkById(sio.getParkId());
@@ -165,7 +165,16 @@ public class InOutService {
 	 * @param carId
 	 * @return
 	 */
-	public ServiceInOut getServiceInOutByCarId(String carId) {
-		return serviceInOutMapper.selectByCarId(carId);
+	public ServiceInOutPojo getNowServiceInOutByCarId(String carId) {
+		return serviceInOutMapper.selectNowSioByCarId(carId);
+	}
+	/**
+	 * 根据userId 和timeOut不为null 查出当前用户所有的历史订单
+	 * @author whp
+	 * @param userId
+	 * @return
+	 */
+	public List<ServiceInOutPojo> getPastServiceInOutByCarId(String userId) {
+		return serviceInOutMapper.selectPastSioByCarId(userId);
 	}
 }
