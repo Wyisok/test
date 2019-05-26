@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
+import park.pojo.Role;
 import park.pojo.UserRole;
 
 public interface UserRoleMapper {
@@ -12,6 +13,8 @@ public interface UserRoleMapper {
 	void insert(UserRole record);
 	@Select("select * from TB_USER_ROLE where user_id = #{0}")
 	List<UserRole> selectByUserId(String userId);
+	
+	Integer selectByUserName(String username);
 	
 	int insertSelective(UserRole record);
 

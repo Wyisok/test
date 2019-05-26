@@ -2,6 +2,7 @@ package park.controller;
 
 import java.text.DecimalFormat;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.shiro.SecurityUtils;
@@ -17,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import net.sf.json.JSONObject;
+import park.exception.ParkWithoutFreeSpotException;
 import park.pojo.Car;
 import park.pojo.Park;
+import park.pojo.ParkSpot;
 import park.pojo.Role;
 import park.pojo.User;
 import park.pojo.UserRole;
 import park.service.CarService;
 import park.service.ParkService;
+import park.service.ParkSpotService;
 import park.service.RoleService;
 import park.service.UserRoleService;
 import park.service.UserService;
@@ -43,6 +47,9 @@ public class UserController {
 	private ParkService parkService;
 	@Autowired
 	private CarService carService;
+	@Autowired
+	private ParkSpotService parkSpotService;
+	
 	/**
 	 * 获取用户分页信息
 	 * 
@@ -106,6 +113,16 @@ public class UserController {
 			if(isParkUser) {
 				//获取到停车场的信息，然后加入session
 				Park park = parkService.getParkByUserId(user.getUserId());
+				
+				
+				try {
+					List<ParkSpot> list=parkSpotService.getFreeParkSpots(park);
+					int i=list.size();
+					session.setAttribute("sum", i);
+				} catch (ParkWithoutFreeSpotException e) {
+					e.printStackTrace();
+				}
+				
 				if(park!=null) {
 					session.setAttribute("park", park);
 				}else {

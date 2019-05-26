@@ -50,5 +50,5 @@ public interface ParkSpotMapper {
 	
 	@Select("select * from PARK_SPOT where park_id = #{0} and spot_state = 0")
 	List<ParkSpot> getParkSpotByParkId(String parkId);
-	
+
 }

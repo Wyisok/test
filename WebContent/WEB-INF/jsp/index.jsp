@@ -78,11 +78,12 @@
 	<div id="wrapper">
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
+		<c:if test="${username!='222' }}">
 			<li class="nav-item active"><a class="nav-link"
 				href="${pageContext.request.contextPath}"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>首页</span>
 			</a></li>
-			
+			</c:if>
 			<c:forEach  items="${menu}" var="m">
 			 <c:choose>
 			<c:when test="${m.menuUrl!= '/index' }">
@@ -107,7 +108,7 @@
 			<div class="container-fluid">
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item active">仪表盘</li>
+					<li class="breadcrumb-item active">停车场信息</li>
 				</ol>
 				<!-- Icon Cards-->
 				<div class="row">
@@ -117,10 +118,10 @@
 								<div class="card-body-icon">
 									<i class="fas fa-fw fa-comments"></i>
 								</div>
-								<div class="mr-5">${park.parkName}</div>
+								<div class="mr-5">停车场名称</div>
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
-								<span class="float-left">View Details</span> <span
+								<span class="float-left">${park.parkName}</span> <span
 								class="float-right"> <i class="fas fa-angle-right"></i>
 							</span>
 							</a>
@@ -132,10 +133,10 @@
 								<div class="card-body-icon">
 									<i class="fas fa-fw fa-list"></i>
 								</div>
-								<div class="mr-5">车位总数:${park.parkSpotNum }</div>
+								<div class="mr-5">车位总数</div>
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
-								<span class="float-left">View Details</span> <span
+								<span class="float-left">${park.parkSpotNum }</span> <span
 								class="float-right"> <i class="fas fa-angle-right"></i>
 							</span>
 							</a>
@@ -147,10 +148,10 @@
 								<div class="card-body-icon">
 									<i class="fas fa-fw fa-shopping-cart"></i>
 								</div>
-								<div class="mr-5">123 New Orders!</div>
+								<div class="mr-5">剩余车位</div>
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
-								<span class="float-left">View Details</span> <span
+								<span class="float-left">${sum}</span> <span
 								class="float-right"> <i class="fas fa-angle-right"></i>
 							</span>
 							</a>
@@ -162,10 +163,10 @@
 								<div class="card-body-icon">
 									<i class="fas fa-fw fa-life-ring"></i>
 								</div>
-								<div class="mr-5">当前人数：</div>
+								<div class="mr-5">总收入</div>
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
-								<span class="float-left">View Details</span> <span
+								<span class="float-left">${park.income }</span> <span
 								class="float-right"> <i class="fas fa-angle-right"></i>
 							</span>
 							</a>
