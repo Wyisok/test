@@ -1,6 +1,8 @@
 package park.pojo;
 
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 /**
  * 用户vip实体
  * @author whp
@@ -16,6 +18,7 @@ public class UserVip {
 	/** 用户vip购买时间 */
 	private Date buyTime;
 	/** 用户vip结束时间 */
+
 	private Date endTime;
 	public String getUserVipId() {
 		return userVipId;

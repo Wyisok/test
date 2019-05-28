@@ -13,13 +13,13 @@ import park.mapper.ParkSpotMapper;
 import park.mapper.ServiceInOutMapper;
 import park.mapper.UserMapper;
 import park.mapper.UserVipMapper;
-import park.mapper.VipMapper;
+import park.mapper.ParkVipMapper;
 import park.pojo.Park;
 import park.pojo.ParkSpot;
 import park.pojo.ServiceInOutPojo;
 import park.pojo.User;
 import park.pojo.UserVip;
-import park.pojo.Vip;
+import park.pojo.ParkVip;
 import park.utils.DateUtils;
 import park.utils.UUIDUtils;
 
@@ -43,7 +43,7 @@ public class ServiceInOut {
 	@Autowired
 	private ParkMapper parkMapper;
 	@Autowired
-	private VipMapper vipMapper;
+	private ParkVipMapper vipMapper;
 	@Autowired
 	private UserVipMapper userVipMapper;
 	@Autowired

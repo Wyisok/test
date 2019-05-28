@@ -25,6 +25,13 @@
 	<mvc:default-servlet-handler />
 	<!-- 能支持springmvc更高级的一些功能，JSR303校验，快捷的ajax...映射动态请求 -->
 	<mvc:annotation-driven />
-
+	<!-- 日期转换，还需要在对应的Controller类中写 注解及方法 -->
+	<mvc:annotation-driven>
+    <mvc:message-converters>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <constructor-arg value="UTF-8"/>
+        </bean>
+    </mvc:message-converters>
+	</mvc:annotation-driven>
 
 </beans>

@@ -89,7 +89,11 @@ public class PageController {
 		loadParkSpotTypes(model);
 		return "parkSpotTable";
 	}
-	
+	@RequestMapping("/parkVip")
+	public String getParkVip(Model model) {
+		loadParkVipTypes(model);
+		return "parkVipTable";
+	}
 	
 	/**
 	 * 无权限跳转界面

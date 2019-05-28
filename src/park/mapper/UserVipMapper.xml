@@ -5,8 +5,8 @@
 <id column="user_vip_id" jdbcType="VARCHAR" property="userVipId"></id>
 <result column="park_id" jdbcType="VARCHAR" property="parkId"></result>
 <result column="user_id" jdbcType="VARCHAR" property="userId"></result>
-<result column="buy_time" jdbcType="TIMESTAMP" property="buyTime"></result>
-<result column="end_time" jdbcType="TIMESTAMP" property="endTime"></result>
+<result column="buy_time"  jdbcType="TIMESTAMP" property="buyTime"></result>
+<result column="end_time"  jdbcType="TIMESTAMP" property="endTime"></result>
 </resultMap>
 
 </mapper>

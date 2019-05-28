@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="park.mapper.ParkVipMapper">
+<resultMap id="parkVip" type="park.pojo.ParkVip">
+<id column="park_vip_id" jdbcType="VARCHAR" property="parkVipId"></id>
+<result column="park_id" jdbcType="VARCHAR" property="parkId"></result>
+<result column="park_vip_type" jdbcType="VARCHAR" property="parkVipType"></result>
+<result column="price" jdbcType="DOUBLE" property="price"></result>
+<result column="discount" jdbcType="DOUBLE" property="discount"></result>
+<result column="length_of_time" jdbcType="INTEGER" property="lengthOfTime"></result>
+<result column="create_time" jdbcType="TIMESTAMP" property="createTime"></result>
+<result column="end_time" jdbcType="TIMESTAMP" property="endTime"></result>
+</resultMap>
+<update id="updateParkVip" parameterType="parkVip">
+update TB_PARK_VIP 
+<set>
+park_vip_type = #{parkVipType},
+price = #{price},
+discount = #{price},
+length_of_time = #{lengthOfTime},
+end_time = #{endTime}
+</set>
+where park_vip_id = #{parkVipId}
+</update>
+</mapper>

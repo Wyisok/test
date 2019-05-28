@@ -1,6 +1,8 @@
 package park.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -32,4 +34,22 @@ public class DateUtils {
 		
 		return result;
 	}
+	/**
+	 * 计算结束时间
+	 * @author whp
+	 * @param startTime
+	 * @param days
+	 * @return
+	 */
+	public static Date getEndTime(Date startTime,int days) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(startTime);//--------------------------date转calendar
+		cal.add(Calendar.DATE, days);
+		Date endTime = cal.getTime();//------------------calendar 转 date
+		return endTime;
+	}
+//	public static void main(String[] args) {
+//		Date endTime = getEndTime(new Date("Sat, 12 Aug 1995 13:30:00 GMT"), 30);
+//		System.out.println(endTime.toLocaleString());
+//	}
 }
