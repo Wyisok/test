@@ -114,4 +114,7 @@ public class ParkSpotController {
 		parkSpotService.deletePSById(parkSpotId);
 		return "ok";
 	}
+
+	
+	
 }

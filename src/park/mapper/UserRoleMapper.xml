@@ -7,4 +7,14 @@
   <result property="roleId" column="role_id"/>
   <result property="identityId" column="identity_id"/>
 </resultMap>
+
+<select id="selectByUserName" parameterType="String" resultType="Integer">
+	select role_id from TB_USER_ROLE ur 
+		left join USER u 
+		on u.user_id=ur.user_id
+		where username=${0}
+
+</select>
+
+
 </mapper>

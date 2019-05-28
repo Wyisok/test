@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import park.mapper.UserRoleMapper;
+import park.pojo.Role;
 import park.pojo.User;
 import park.pojo.UserRole;
 
@@ -30,6 +31,16 @@ public class UserRoleService {
                 userRoleMapper.insert(userRole);
             }
     }
+	/**
+	 * 根据用户名查询用户角色id
+	 */
+	public Integer selectRoleIdByUserName(String username){
+		int i=userRoleMapper.selectByUserName(username);
+		System.out.println("roleid==="+i);
+		return i;
+	}
+	
+	
 	
 	/**
 	 * 通过用户id删除 该用户所有的角色信息
