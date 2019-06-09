@@ -63,10 +63,14 @@ public class ParkVipController {
 	@ResponseBody
 	@RequestMapping("/addParkVip")
 	public void addParkVip(ParkVip parkVip) {
-		long hours = DateUtils.getHours(new Date(), parkVip.getEndTime());
-		if(hours<0) {
-			return;
+		if(parkVip.getEndTime()!=null) {//-------------------------------------------一个简单验证，结束时间要比开始时间大
+			System.out.println("endTime:"+parkVip.getEndTime());
+			long hours = DateUtils.getHours(new Date(), parkVip.getEndTime());
+			if(hours<0) {
+				return;
+			}
 		}
+		
 		parkVip.setParkVipId(UUIDUtils.getUUID());
 		System.out.println(parkVip);
 		parkVipService.addParkVip(parkVip);

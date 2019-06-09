@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,12 +13,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import park.pojo.BaseDict;
+import park.pojo.Menu;
 import park.service.BaseDictService;
+import park.service.MenuService;
+import park.service.UserRoleService;
 
 @Controller
 public class PageController {
 	@Autowired
 	private BaseDictService baseDictService;
+	@Autowired
+	MenuService menuService;
+	@Autowired
+	UserRoleService userRoleService;
 	/**
 	 * 获取字典信息
 	 */
@@ -37,19 +45,14 @@ public class PageController {
 		if(user == null) {
 			return "login";
 		}
-		return "redirect:/index";
+		return "index";
 	}
-	@RequestMapping("index")
-	public String getIndex1(HttpSession session) {
-		Subject user = (Subject) session.getAttribute("subject");
-		String username=(String) session.getAttribute("username");
-		System.out.println("session中的user"+user);
-		if(user == null) {
-			return "login";
-		}
-		return "redirect:/showMenu?username="+username;
-		
+	@RequestMapping("/index")
+	public String getIndex1(HttpSession session,Model model) {
+		System.out.println(model.containsAttribute("menu"));
+		return "redirect:index";
 	}
+	
 	/**
 	 * 转发到userTable.jsp页面
 	 * @return
@@ -80,7 +83,7 @@ public class PageController {
 	 * @return
 	 */
 	@RequestMapping("/park")
-	public String getParkTable(Model model) {
+	public String getParkTable(HttpSession session,Model model) {
 		loadParkChargeTypes(model);
 		return "parkTable";
 	}

@@ -11,21 +11,28 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import net.sf.json.JSONObject;
 import park.exception.ParkWithoutFreeSpotException;
+import park.pojo.BaseDict;
 import park.pojo.Car;
+import park.pojo.Menu;
 import park.pojo.Park;
 import park.pojo.ParkSpot;
 import park.pojo.Role;
 import park.pojo.User;
 import park.pojo.UserRole;
+import park.service.BaseDictService;
 import park.service.CarService;
+import park.service.MenuService;
 import park.service.ParkService;
 import park.service.ParkSpotService;
 import park.service.RoleService;
@@ -49,6 +56,11 @@ public class UserController {
 	private CarService carService;
 	@Autowired
 	private ParkSpotService parkSpotService;
+	@Autowired
+	MenuService menuService;
+	@Autowired
+	PageController pageController;
+	
 	
 	/**
 	 * 获取用户分页信息
@@ -110,10 +122,15 @@ public class UserController {
 			user = (User)subject.getPrincipal();
 			Session session = subject.getSession();
 			boolean isParkUser = subject.hasRole("停车场用户");
+			session.setAttribute("username",user.getUsername() );
+			
+			List<Menu> list1=menuService.selectByUserName(user.getUsername());
+		   session.setAttribute("menu", list1);
+		   
+			session.setAttribute("subject", subject);
 			if(isParkUser) {
 				//获取到停车场的信息，然后加入session
 				Park park = parkService.getParkByUserId(user.getUserId());
-				
 				
 				try {
 					List<ParkSpot> list=parkSpotService.getFreeParkSpots(park);
@@ -128,17 +145,17 @@ public class UserController {
 				}else {
 					return "redirect:login";
 				}
+				return "index";//------------停车场用户到首页
+			}else {
+				//重定向到park
+				pageController.loadParkChargeTypes(model);
+				return "parkTable";//-----------管理员到停车场管理页面
 			}
-			session.setAttribute("subject", subject);
-			session.setAttribute("username",user.getUsername() );
-			return "redirect:index";
-
 		} catch (AuthenticationException e) {
 			model.addAttribute("error", "用户名密码错误");
 			return "login";
 		}
 	}
-	
 	/**
 	 * 更新用户
 	 */

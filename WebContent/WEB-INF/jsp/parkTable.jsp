@@ -1,19 +1,138 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>停车场</title>
-<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>智能停车管理系统</title>
 <style type="text/css">
 .table{ /*数据表格标题文字居中*/
 text-align: center;
 vertical-align: middle!important;
 }
 </style>
+<%@include file="header.jsp"%>
 </head>
 <body id="page-top">
+
+	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+		<a class="navbar-brand mr-1" href="${pageContext.request.contextPath}">智能停车管理系统</a>
+
+		<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
+			id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+
+		<!-- Navbar Search -->
+		<form
+			class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search for..."
+					aria-label="Search" aria-describedby="basic-addon2">
+				<div class="input-group-append">
+					<button class="btn btn-primary" type="button">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+
+		<!-- Navbar -->
+		<ul class="navbar-nav ml-auto ml-md-0">
+			<li class="nav-item dropdown no-arrow mx-1"><a
+				class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i> <span
+					class="badge badge-danger"></span>
+			</a>
+				<div class="dropdown-menu dropdown-menu-right"
+					aria-labelledby="alertsDropdown">
+					<a class="dropdown-item" href="#">Action</a> <a
+						class="dropdown-item" href="#">Another action</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Something else here</a>
+				</div></li>
+			<li class="nav-item dropdown no-arrow mx-1"></li>
+
+
+			<li class="nav-item dropdown no-arrow"><a
+				class="nav-link dropdown-toggle" id="userDropdown" role="button"
+				data-toggle="dropdown" aria-haspopup="true"> <i
+					class="fas fa-user-circle fa-fw"> </i>
+			</a>
+				<div class="dropdown-menu dropdown-menu-right"
+					aria-labelledby="userDropdown">
+					<a class="dropdown-item" href="#">用户名：${username}</a> 
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="" data-toggle="modal"
+						data-target="#logoutModal">退出登录</a>
+				</div></li>
+		</ul>
+	</nav>
+
+	<div id="wrapper">
+		<!-- Sidebar -->
+			<!-- Sidebar -->
+		<ul class="sidebar navbar-nav">
+			<c:forEach items="${menu}" var="m">
+			<%-- 	<c:if test="${'/index'.equals(m.menuUrl)}">
+					<li class="nav-item active">
+					<a class="nav-link" href="${pageContext.request.contextPath}"> 
+						<i class="fas fa-fw fa-tachometer-alt"></i> 
+						<span>${m.menuName }</span>
+					</a>
+					</li>
+				</c:if> --%>
+				<c:if test="${'/park'.equals(m.menuUrl)}">
+					<li class="nav-item active">
+					<a class="nav-link" href="${pageContext.request.contextPath}/park"> 
+						<i class="fas fa-fw fa-tachometer-alt"></i> 
+						<span>${m.menuName }</span>
+					</a>
+					</li>
+				</c:if>
+				<c:if test="${!'/park'.equals(m.menuUrl)}">
+					<li class="nav-item">
+					<a class="nav-link" onclick=openAjaxURL('${m.menuUrl }') >
+					 <i class="fas fa-fw fa-chart-area">
+					</i> 
+					<span>${m.menuName }</span>
+					</a>
+					</li>
+				</c:if>
+			</c:forEach>
+		</ul>
+		<script type="text/javascript">
+	function openAjaxURL(url){
+		var url = "${pageContext.request.contextPath}"+url;
+		$('#content-wrapper').load(url);
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<div id="content-wrapper">
 		<div class="container-fluid">
 			<!-- DataTables Example -->
@@ -159,7 +278,43 @@ vertical-align: middle!important;
 			</div>
 		</div>
 	</div>
+	
+	
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">确定要退出登录吗?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true"></span>
+					</button>
+				</div>
+				<!-- <div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div> -->
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">取消</button>
+					<a class="btn btn-primary"
+						href="${pageContext.request.contextPath}/doLogout">退出</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 <%@include file="footer.jsp" %>
+
+
+
+
+
 
 
 
@@ -227,9 +382,10 @@ vertical-align: middle!important;
 					　　}); 
 					} 
 			}); 
-			
-		
 		});
+		 
+		 
+		 
 		 
 		 function delPark(parkId){
 			 $.ajax({

@@ -21,14 +21,14 @@ public class MenuController {
 	@Autowired
 	UserRoleService userRoleService;
 	
-	@RequestMapping("/showMenu")
-	public String getMenu(Model model,@RequestParam String username){
-		System.out.println(username);
-		List<Menu> list=menuService.selectByUserName(username);
-		//Integer roleId=userRoleService.selectRoleIdByUserName(username);
-		System.out.println("用户信息"+list);
-		model.addAttribute("menu",list);
-		model.addAttribute("username",username);
-		return "index";
-	}
+//	@RequestMapping("/showMenu")
+//	public String getMenu(Model model,@RequestParam String username){
+//		System.out.println(username);
+//		List<Menu> list=menuService.selectByUserName(username);
+//		//Integer roleId=userRoleService.selectRoleIdByUserName(username);
+//		System.out.println("用户信息"+list);
+//		model.addAttribute("menu",list);
+//		model.addAttribute("username",username);
+//		return "index";
+//	}
 }

@@ -43,11 +43,6 @@ public class AppPush {
 		AppPush.url = url;
 	}
 
-//	private static IGtPush push;
-//	static {
-//		 IGtPush push = new IGtPush(url, appKey, masterSecret);
-//	}
-
 	/**
 	 * 根据客户ClientID 向客户发送通知消息
 	 * 

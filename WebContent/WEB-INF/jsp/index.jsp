@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,12 +14,11 @@
 <%@include file="header.jsp"%>
 </head>
 
-<body id="page-top" >
+<body id="page-top">
 
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-		<a class="navbar-brand mr-1"
-			href="${pageContext.request.contextPath}">智能停车管理系统</a>
+		<a class="navbar-brand mr-1" href="${pageContext.request.contextPath}">城市智能停车系统</a>
 
 		<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
 			id="sidebarToggle" href="#">
@@ -56,48 +55,50 @@
 					<a class="dropdown-item" href="#">Something else here</a>
 				</div></li>
 			<li class="nav-item dropdown no-arrow mx-1"></li>
-			
-			
-			<li class="nav-item dropdown no-arrow">
-			<a class="nav-link dropdown-toggle"  id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> 
-			<i class="fas fa-user-circle fa-fw">
-			</i>
+
+
+			<li class="nav-item dropdown no-arrow"><a
+				class="nav-link dropdown-toggle" id="userDropdown" role="button"
+				data-toggle="dropdown" aria-haspopup="true"> <i
+					class="fas fa-user-circle fa-fw"> </i>
 			</a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">用户名：${username}</a> 
-					<a class="dropdown-item" href="#">个人信息</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href=""  data-toggle="modal"
+					<a class="dropdown-item" href="" data-toggle="modal"
 						data-target="#logoutModal">退出登录</a>
-				</div>
-			</li>
+				</div></li>
 		</ul>
 	</nav>
 
 	<div id="wrapper">
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
-		<c:if test="${username!='222' }}">
-			<li class="nav-item active"><a class="nav-link"
-				href="${pageContext.request.contextPath}"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>首页</span>
-			</a></li>
-			</c:if>
-			<c:forEach  items="${menu}" var="m">
-			 <c:choose>
-			<c:when test="${m.menuUrl!= '/index' }">
-			
-			<li class="nav-item"><a class="nav-link" onclick=openAjaxURL('${m.menuUrl }')>
-					<i class="fas fa-fw fa-chart-area"></i> <span>${m.menuName }</span>
-			</a></li>
-			
-			</c:when>
-			</c:choose>
+			<c:forEach items="${menu}" var="m">
+				<c:if test="${'/index'.equals(m.menuUrl)}">
+					<li class="nav-item active">
+					<a class="nav-link" href="${pageContext.request.contextPath}"> 
+						<i class="fas fa-fw fa-tachometer-alt"></i> 
+						<span>${m.menuName }</span>
+					</a>
+					</li>
+				</c:if>
+				
+				<c:if test="${!'/index'.equals(m.menuUrl)}">
+					<li class="nav-item">
+					<a class="nav-link" onclick=openAjaxURL('${m.menuUrl }') >
+					 <i class="fas fa-fw fa-chart-area">
+					</i> 
+					<span>${m.menuName }</span>
+					</a>
+					</li>
+				</c:if>
+				
 			</c:forEach>
 
 		</ul>
-<script type="text/javascript">
+		<script type="text/javascript">
 	function openAjaxURL(url){
 		var url = "${pageContext.request.contextPath}"+url;
 		$('#content-wrapper').load(url);
@@ -151,8 +152,8 @@
 								<div class="mr-5">剩余车位</div>
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
-								<span class="float-left">${sum}</span> <span
-								class="float-right"> <i class="fas fa-angle-right"></i>
+								<span class="float-left">${sum}</span> <span class="float-right">
+									<i class="fas fa-angle-right"></i>
 							</span>
 							</a>
 						</div>
@@ -230,16 +231,18 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">取消</button>
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/doLogout">退出</a>
+					<a class="btn btn-primary"
+						href="${pageContext.request.contextPath}/doLogout">退出</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-<%@include file="footer.jsp"%>
-<!-- Demo scripts for this page-->
-<script src="${pageContext.request.contextPath }/static/js/demo/chart-area-demo.js"></script>
-<script type="text/javascript">
+	<%@include file="footer.jsp"%>
+	<!-- Demo scripts for this page-->
+	<script
+		src="${pageContext.request.contextPath }/static/js/demo/chart-area-demo.js"></script>
+	<script type="text/javascript">
 $(function(){
 	 $('.navbar-nav li').click(function(){
 	      $('.navbar-nav li').removeClass('active');
